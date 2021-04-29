@@ -1,9 +1,131 @@
 var express = require('express');
 var router = express.Router();
+var User = require('../models/User');
+var bcrypt = require('bcrypt');
+var saltRounds = 10;
+var jwt = require('jsonwebtoken');
+var jwtSecret = require('../config/keys').JWT_KEY;
+var emailPassword = require('../config/keys').EMAIL_PASS;
+var checkAuth = require('../middleware/check-auth.js');
+var nodemailer = require('nodemailer');
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
+  User.find()
+  .then(users => res.json(users));
 });
+
+router.get('/validate-request', checkAuth, function(req, res, next) {
+  return res.status(200).json({ message: 'Valid'})
+})
+
+/* POST users create new user */
+router.post('/', function(req, res) {
+  User.findOne({ email: req.body.email})
+    .exec()
+    .then(user => {
+      if (user) {
+        return res.status(409).json({ message: 'Email address already exists.'})
+      }
+      saveUser(res, req.body.email, req.body.password, req.body.firstName, req.body.lastName);
+    })
+});
+
+/* POST users login */
+router.post('/login', function(req, res) {
+  User.findOne({ email: req.body.email})
+    .exec()
+    .then(user => {
+      if (!user) {
+        return res.status(401).json({ message: 'Auth failed.'})
+      }
+      loginUser(req, res, user);
+    })
+});
+
+router.post('/reset', function(req, res) {
+  User.findOne({ email: req.body.email })
+  .exec()
+  .then(user => {
+    if (!user) {
+      return res.status(404).json({ message: 'Couldn\'t find an account associated with this email.'})
+    }
+    resetPassword(req, res, user);
+  })
+})
+
+function resetPassword(req, res, user) {
+  var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: 'bdangabriel@gmail.com',
+      pass: emailPassword
+    }
+  });
+
+  let newPass = ""
+  for (let i = 0; i < 8; i++) {
+    newPass += parseInt(Math.floor(Math.random() * 9) + 0)
+  }
+
+  var mailOptions = {
+    from: 'bdangabriel@gmail.com',
+    to: req.body.email,
+    subject: 'Breekly - Password reset',
+    text: newPass
+  };
+
+  bcrypt.hash(newPass, saltRounds, function(err, hash) {
+    // Update hash as a password in DB
+    user.password = hash
+    user.save()
+    .then(user => {
+      transporter.sendMail(mailOptions, function(error, info){
+        if (error) {
+          return res.status(500).json({err: error})
+        } else {
+          return res.status(200).json({message: "An email with the new password was sent."})
+        }
+      });
+    })
+    .catch(err => res.status(500).json({error: err}));
+  });
+}
+
+function loginUser(req, res, user) {
+  bcrypt.compare(req.body.password, user.password, function(err, result) {
+    if (result === false) {
+      return res.status(401).json({ message: "Auth failed." });
+    }
+    // Generate user token
+    var token = jwt.sign({
+      userId: user._id,
+      email: user.email,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      isAdmin: user.isAdmin,
+    }, jwtSecret, {
+      expiresIn: "1h"
+    });
+    return res.status(202).json({
+      message: "Success!",
+      token: token
+    });
+  });
+}
+
+function saveUser(res, email, password, firstName, lastName) {
+  bcrypt.hash(password, saltRounds, function(err, hash) {
+    let newUser = new User({
+      email: email,
+      password: hash,
+      firstName: firstName,
+      lastName: lastName
+    });
+    newUser.save()
+      .then(user => res.status(200).json({ message: "Success!", user: user }))
+      .catch(err => res.status(500).json({ error: err }));
+  })
+}
 
 module.exports = router;
