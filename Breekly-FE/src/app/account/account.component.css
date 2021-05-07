@@ -1,0 +1,18 @@
+.account-card {
+    margin-bottom: 3%;
+}
+
+.account-card-footer {
+    border-top: 0.5px solid #e6e2e2;
+    width: 100%;
+}
+
+.footer-btn {
+    width: 100%;
+    color: blue
+}
+
+.card-body {
+    padding: 1rem 0 0rem 1rem;
+    /* padding-top: 1rem; */
+}
