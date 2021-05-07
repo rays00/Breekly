@@ -3,10 +3,13 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { RedirectComponent } from './redirect/redirect.component';
+import { AccountComponent } from './account/account.component';
 import { LoginComponent } from './login/login.component';
 import { HttpClientModule } from '@angular/common/http';
 import { JwtModule } from "@auth0/angular-jwt";
+import { HomeComponent } from './home/home.component';
+import { NavbarComponent } from './navbar/navbar.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 export function tokenGetter() {
   return localStorage.getItem("AUTH")
@@ -15,8 +18,10 @@ export function tokenGetter() {
 @NgModule({
   declarations: [
     AppComponent,
-    RedirectComponent,
-    LoginComponent
+    AccountComponent,
+    LoginComponent,
+    HomeComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
@@ -26,7 +31,8 @@ export function tokenGetter() {
       config: {
         tokenGetter: tokenGetter
       },
-    })
+    }),
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

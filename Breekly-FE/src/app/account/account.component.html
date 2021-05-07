@@ -1,0 +1,50 @@
+<div class="container" *ngIf="userData">
+    <div class="row">
+      <div class="col-sm-9">
+        <div class="card account-card">
+            <div class="card-body">
+              <h5 class="card-title">Datele contului</h5>
+              <h6 class="card-subtitle mb-2 text-muted"></h6>
+              <p class="card-text">Nume: {{userData.firstName}}</p>
+              <p class="card-text">Prenume: {{userData.lastName}}</p>
+              <p class="card-text">Telefon: 0722747426</p>
+              <div class="account-card-footer">
+                <button class="btn footer-btn" (click)="logout()">iesire</button>
+            </div>
+            </div>
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <div class="card account-card">
+            <div class="card-body">
+                <h5 class="card-title">Activitatea mea</h5>
+                <h6 class="card-subtitle mb-2 text-muted"></h6>
+                <p class="card-text">Nume: {{userData.firstName}}</p>
+                <p class="card-text">Prenume: {{userData.lastName}}</p>
+                <p class="card-text">Telefon: 0722747426</p>
+                <div class="account-card-footer">
+                    <button class="btn footer-btn">vezi lista comenzi</button>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card account-card">
+                <div class="card-body">
+                    <h5 class="card-title">Adresele mele</h5>
+                    <h6 class="card-subtitle mb-2 text-muted"></h6>
+                    <p class="card-text">Nume: {{userData.firstName}}</p>
+                    <p class="card-text">Prenume: {{userData.lastName}}</p>
+                    <p class="card-text">Telefon: 0722747426</p>
+                    <div class="account-card-footer">
+                        <button class="btn footer-btn">editeaza</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

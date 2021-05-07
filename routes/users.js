@@ -15,6 +15,10 @@ router.get('/', function(req, res, next) {
   .then(users => res.json(users));
 });
 
+router.get('/user-data', checkAuth, function (req, res, next) {
+  return res.status(200).json({userData: jwt.decode(req.headers.authorization.split(" ")[1])})
+})
+
 router.get('/validate-request', checkAuth, function(req, res, next) {
   return res.status(200).json({ message: 'Valid'})
 })
