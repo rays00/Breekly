@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms'; 
 import { HttpClient } from '@angular/common/http';
 import { Router, ActivatedRoute } from '@angular/router';
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-login',
@@ -24,6 +25,12 @@ export class LoginComponent implements OnInit {
         localStorage.setItem("AUTH", data.token)
       },
       err => {
+        Swal.fire({
+          title: 'Error!',
+          text: 'Wrong username or password',
+          icon: 'error',
+          confirmButtonText: 'OK'
+        })
       }
     )
   }

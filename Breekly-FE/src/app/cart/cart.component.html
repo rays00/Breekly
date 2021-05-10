@@ -1,0 +1,29 @@
+<div class="container" *ngIf="items else missing">
+  <h3>Shopping Cart</h3>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Product</th>
+        <th scope="col">Price</th>
+        <th scope="col">Quantity</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of items">
+        <td>{{item.name}}</td>
+        <td>{{item.price | currency}}</td>
+        <td>{{item.qty}}</td>
+      </tr>
+    </tbody>
+  </table>
+  <button class="btn btn-danger" (click)="clearCart()">Clear Cart</button>
+  <button class="btn btn-primary next-step" (click)="toggleShippingInfo()">Next Step</button>
+</div>
+
+<app-shipping-info [items]="items" *ngIf="nextStep"></app-shipping-info>
+
+<ng-template #missing>
+  <div class="container">
+    <h3>You don't have any items in your shopping cart.</h3>
+  </div>
+</ng-template>

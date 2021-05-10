@@ -1,0 +1,15 @@
+.nav-link {
+    padding: 0
+}
+
+.card-body {
+    height: 25em
+}
+
+.card {
+    margin-bottom: 5%
+}
+
+.card-title:hover {
+    cursor: pointer
+}
