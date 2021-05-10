@@ -38,9 +38,45 @@ export class CartService {
     return null
   }
 
+  increaseQty(productId: any) {
+    var result = this.items.find((obj: { _id: string; }) => {
+      return obj._id === productId
+    })
+
+    if (result) {
+      result.qty++
+      localStorage.setItem('cart', JSON.stringify(this.items))
+    }
+  }
+
+  decreaseQty(productId: any) {
+    var result = this.items.find((obj: { _id: string; }) => {
+      return obj._id === productId
+    })
+
+    if (result) {
+      result.qty--
+      localStorage.setItem('cart', JSON.stringify(this.items))
+    }
+  }
+
+  removeById(id: any) {
+    var result = this.items.find((obj: { _id: string; }) => {
+      return obj._id === id
+    })
+
+    if (result) {
+      this.items.splice(this.items.indexOf(result), 1);
+      if (this.items.length) {
+        localStorage.setItem('cart', JSON.stringify(this.items))
+      } else {
+        this.clearCart()
+      }
+    }
+  }
+
   clearCart() {
     this.items = [];
     localStorage.removeItem('cart')
-    return this.items;
   }
 }

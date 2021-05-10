@@ -1,3 +1,16 @@
 .next-step {
     float: right
 }
+
+.total {
+    border-top: 2px solid black;
+}
+
+.quantity-field {
+    display: flex
+}
+
+.increase-qty:hover,
+ .decrease-qty:hover {
+    cursor: pointer;
+}

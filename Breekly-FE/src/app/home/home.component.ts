@@ -15,7 +15,6 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.http.get<any>('api/products').subscribe(
       data => {
-        console.log(data)
         this.homeProducts = data.slice(0, 3)
       }
     )

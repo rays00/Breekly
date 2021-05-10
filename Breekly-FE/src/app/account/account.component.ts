@@ -11,14 +11,20 @@ import Swal from 'sweetalert2'
 export class AccountComponent implements OnInit {
 
   userData: any;
+  subscriptions: any;
 
   constructor(private http: HttpClient, private router: Router) { 
   }
 
   ngOnInit(): void {
-        this.http.get<any>("/api/users/user-data").subscribe(
+    this.http.get<any>("/api/users/user-data").subscribe(
       data => {
         this.userData = data.userData
+      }
+    )
+    this.http.get<any>("/api/subscriptions").subscribe(
+      data => {
+        this.subscriptions = data.length
       }
     )
   }
