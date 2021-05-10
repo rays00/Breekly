@@ -1,0 +1,33 @@
+<div class="container" *ngIf="product">
+    <div class="row">
+        <div class="col-sm-9">
+            <div class="card product-card">
+                <div class="card-body">
+                    <h5 class="card-title">{{product.name}}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted"></h6>
+                    <p class="card-text">Description: {{product.description}}</p>
+                    <p class="card-text">Price: {{product.price}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="card product-card">
+                <div class="card-body">
+                    <h5 class="card-title">Actions</h5>
+                    <p class="card-text">Description: {{product.description}}</p>
+                    <button class="btn btn-primary" (click)="addToCart(product)">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-9">
+            <div class="card product-card">
+                <div class="card-body">
+                    <h5 class="card-title">Reviews</h5>
+                    <h6 class="card-subtitle mb-2 text-muted"></h6>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

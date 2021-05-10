@@ -1,0 +1,22 @@
+<div class="container">
+    <h2>Billing information</h2>
+    <form class="billing-form" [formGroup]="billingForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="firstname">First Name</label>
+          <input type="text" class="form-control" id="firstname" aria-describedby="firstname" placeholder="First Name"  formControlName="firstName">
+        </div>
+        <div class="form-group">
+            <label for="lastname">Last Name</label>
+            <input type="text" class="form-control" id="lastname" aria-describedby="lastname" placeholder="Last Name"  formControlName="lastName">
+        </div>
+        <div class="form-group">
+            <label for="street">Street</label>
+            <input type="text" class="form-control" id="street" aria-describedby="street" placeholder="Street"  formControlName="street">
+        </div>
+        <div class="form-group">
+            <label for="phoneNumber">Phone</label>
+            <input type="text" class="form-control" id="phoneNumber" aria-describedby="phoneNumber" placeholder="Phone"  formControlName="phoneNumber">
+        </div>
+        <button type="submit" class="btn btn-primary">Send Subscription</button>
+    </form>
+</div>

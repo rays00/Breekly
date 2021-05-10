@@ -10,6 +10,9 @@ import { JwtModule } from "@auth0/angular-jwt";
 import { HomeComponent } from './home/home.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ProductComponent } from './product/product.component';
+import { CartComponent } from './cart/cart.component';
+import { ShippingInfoComponent } from './shipping-info/shipping-info.component';
 
 export function tokenGetter() {
   return localStorage.getItem("AUTH")
@@ -21,7 +24,10 @@ export function tokenGetter() {
     AccountComponent,
     LoginComponent,
     HomeComponent,
-    NavbarComponent
+    NavbarComponent,
+    ProductComponent,
+    CartComponent,
+    ShippingInfoComponent
   ],
   imports: [
     BrowserModule,
