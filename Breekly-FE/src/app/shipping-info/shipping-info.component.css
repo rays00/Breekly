@@ -5,3 +5,7 @@
 .container {
     margin-top: 1%
 }
+
+mat-spinner {
+    margin: auto;
+}

@@ -1,5 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms'; 
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-shipping-info',
@@ -7,6 +8,10 @@ import { FormGroup, FormControl } from '@angular/forms';
   styleUrls: ['./shipping-info.component.css']
 })
 export class ShippingInfoComponent implements OnInit {
+
+  loader = false
+  @Output() displayNextStep = new EventEmitter<boolean>();
+  @Input() items: any
 
   billingForm = new FormGroup({
     firstName: new FormControl(''),
@@ -16,16 +21,19 @@ export class ShippingInfoComponent implements OnInit {
   });
 
   onSubmit() {
-    console.log(this.billingForm.value.firstName)
-    console.log(this.billingForm.value.lastName)
-    console.log(this.billingForm.value.street)
-    console.log(this.billingForm.value.phoneNumber)
-    console.log(this.items)
+    this.loader = true
+    this.items.forEach((element: any) => {
+      this.httpClient.post('api/subscriptions', {productId: element._id, period: 1, qty: element.qty}).subscribe(
+        data => {
+          this.loader = false
+          this.displayNextStep.emit(false)
+        },
+        error => console.log(error)
+      )
+    });
   }
 
-  @Input() items: any
-
-  constructor() { }
+  constructor(private httpClient: HttpClient) { }
 
   ngOnInit(): void {
   }

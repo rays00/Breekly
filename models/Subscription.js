@@ -14,6 +14,10 @@ const SubscriptionSchema = new Schema({
     period: {
         type:Number,
         required: true
+    },
+    qty: {
+        type: Number,
+        required: true
     }
 });
 module.exports = Subscription = mongoose.model("subscription", SubscriptionSchema);

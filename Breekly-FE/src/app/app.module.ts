@@ -13,6 +13,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ProductComponent } from './product/product.component';
 import { CartComponent } from './cart/cart.component';
 import { ShippingInfoComponent } from './shipping-info/shipping-info.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 export function tokenGetter() {
   return localStorage.getItem("AUTH")
@@ -38,7 +40,9 @@ export function tokenGetter() {
         tokenGetter: tokenGetter
       },
     }),
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    MatProgressSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

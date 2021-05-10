@@ -3,11 +3,22 @@ var router = express.Router();
 var Subscription = require('../models/Subscription');
 var Product = require('../models/Product');
 var User = require('../models/User');
+var checkAuth = require('../middleware/check-auth.js');
+var jwtSecret = require('../config/keys').JWT_KEY;
+var jwt = require('jsonwebtoken');
 
-router.post('/', function(req, res) {
-    const userId = req.body.userId;
+router.get('/', function(req, res) {
+    Subscription.find()
+    .then(subscriptions => res.json(subscriptions));
+})
+
+router.post('/', checkAuth, function(req, res) {
     const productId = req.body.productId;
     const period = req.body.period;
+    const qty = req.body.qty;
+    
+    decoded = jwt.decode(req.headers.authorization.split(" ")[1], jwtSecret);
+    const userId = decoded.userId
 
     User.findById(userId)
     .exec()
@@ -18,7 +29,8 @@ router.post('/', function(req, res) {
             let newSubscription = new Subscription({
                 userId: userId,
                 productId: productId,
-                period: period
+                period: period,
+                qty: qty
             });
             newSubscription.save()
             .then(subscription => res.status(200).json({ message: "Success!", subscription: subscription }))

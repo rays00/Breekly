@@ -4,15 +4,36 @@
     <thead>
       <tr>
         <th scope="col">Product</th>
-        <th scope="col">Price</th>
+        <th scope="col">Price per item</th>
         <th scope="col">Quantity</th>
+        <th scope="col">Price</th>
+        <th scope="col">Action</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let item of items">
         <td>{{item.name}}</td>
         <td>{{item.price | currency}}</td>
-        <td>{{item.qty}}</td>
+        <td>
+          <div class="quantity-field">
+            <div>
+              <i class="increase-qty bi-arrow-up-square-fill" (click)="increaseQuantity(item)"></i>
+              {{item.qty}}
+              <i class="decrease-qty bi-arrow-down-square-fill" (click)="decreaseQuantity(item)"></i>
+            </div>
+          </div>
+        </td>
+        <td>{{item.price * item.qty | currency}}</td>
+        <td>
+          <button class="btn btn-danger" (click)="removeItem(item)">Remove</button>
+        </td>
+      </tr>
+      <tr class="total">
+        <td>Total</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>{{total | currency}}</td>
       </tr>
     </tbody>
   </table>
@@ -20,7 +41,7 @@
   <button class="btn btn-primary next-step" (click)="toggleShippingInfo()">Next Step</button>
 </div>
 
-<app-shipping-info [items]="items" *ngIf="nextStep"></app-shipping-info>
+<app-shipping-info (displayNextStep)="getNextStep($event)" [items]="items" *ngIf="nextStep"></app-shipping-info>
 
 <ng-template #missing>
   <div class="container">
