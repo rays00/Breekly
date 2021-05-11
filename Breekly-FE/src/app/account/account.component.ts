@@ -12,6 +12,8 @@ export class AccountComponent implements OnInit {
 
   userData: any;
   subscriptions: any;
+  addresses: any;
+  mainAddress: any;
 
   constructor(private http: HttpClient, private router: Router) { 
   }
@@ -24,7 +26,25 @@ export class AccountComponent implements OnInit {
     )
     this.http.get<any>("/api/subscriptions").subscribe(
       data => {
-        this.subscriptions = data.length
+        let subscriptions: { userId: any; }[] = []
+        data.forEach((element: { userId: any; }) => {
+          if (element.userId == this.userData.userId) {
+            subscriptions.push(element)
+          }
+        })
+        this.subscriptions = subscriptions.length
+      }
+    )
+    this.http.get<any>("/api/addresses").subscribe(
+      data => {
+        let addresses: { userId: any; }[] = []
+        data.forEach((element: { userId: any; }) => {
+          if (element.userId == this.userData.userId) {
+            addresses.push(element)
+          }  
+        });
+        this.addresses = addresses
+        this.mainAddress = addresses.shift()
       }
     )
   }
