@@ -16,6 +16,7 @@ router.post('/', checkAuth, function(req, res) {
     const productId = req.body.productId;
     const period = req.body.period;
     const qty = req.body.qty;
+    const addressId = req.body.addressId;
     
     decoded = jwt.decode(req.headers.authorization.split(" ")[1], jwtSecret);
     const userId = decoded.userId
@@ -30,7 +31,8 @@ router.post('/', checkAuth, function(req, res) {
                 userId: userId,
                 productId: productId,
                 period: period,
-                qty: qty
+                qty: qty,
+                addressId: addressId
             });
             newSubscription.save()
             .then(subscription => res.status(200).json({ message: "Success!", subscription: subscription }))

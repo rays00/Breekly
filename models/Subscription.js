@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const SubscriptionSchema = new Schema({
+let SubscriptionSchema = new Schema({
     userId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
@@ -18,6 +18,11 @@ const SubscriptionSchema = new Schema({
     qty: {
         type: Number,
         required: true
+    },
+    addressId: {
+        type: String,
+        required: true
     }
 });
+SubscriptionSchema.index({ userId: 1, productId: 1, period: 1, qty: 1}, {unique: true});
 module.exports = Subscription = mongoose.model("subscription", SubscriptionSchema);
