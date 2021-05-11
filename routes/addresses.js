@@ -8,7 +8,7 @@ var checkAuth = require('../middleware/check-auth.js');
 /* GET home page. */
 router.get('/', function(req, res, next) {
     Address.find()
-    .then(products => res.json(products));
+    .then(addresses => res.json(addresses));
 });
 
 /* POST products create new product */

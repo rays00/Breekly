@@ -16,3 +16,19 @@
     padding: 1rem 0 0rem 1rem;
     /* padding-top: 1rem; */
 }
+
+
+.addresses-p {
+    margin: 0;
+    width: 350px;
+}
+
+.decorate {
+    color: #003e75;
+}
+
+.action {
+    font-weight: 500;
+    color: #0f6ec6;
+    width: auto;
+}

@@ -1,6 +1,6 @@
 <div class="container" *ngIf="userData">
     <div class="row">
-      <div class="col-sm-9">
+      <div class="col-sm-6">
         <div class="card account-card">
             <div class="card-body">
               <h5 class="card-title">Datele contului</h5>
@@ -9,21 +9,21 @@
               <p class="card-text">Prenume: {{userData.lastName}}</p>
               <p class="card-text">Telefon: 0722747426</p>
               <div class="account-card-footer">
-                <button class="btn footer-btn" (click)="logout()">iesire</button>
+                <button class="btn footer-btn action" (click)="logout()">exit</button>
             </div>
             </div>
         </div>
       </div>
-      <div class="col-sm-3">
+      <div class="col-sm-6">
         <div class="card account-card">
             <div class="card-body">
-                <h5 class="card-title">Activitatea mea</h5>
+                <h5 class="card-title">My Activity</h5>
                 <h6 class="card-subtitle mb-2 text-muted"></h6>
                 <p class="card-text">Nume: {{userData.firstName}}</p>
                 <p class="card-text">Prenume: {{userData.lastName}}</p>
                 <p class="card-text">Subscriptions: {{subscriptions}}</p>
                 <div class="account-card-footer">
-                    <button class="btn footer-btn">vezi lista comenzi</button>
+                    <button class="btn footer-btn action">your subscriptions</button>
                 </div>
             </div>
         </div>
@@ -34,12 +34,18 @@
             <div class="card account-card">
                 <div class="card-body">
                     <h5 class="card-title">Adresele mele</h5>
-                    <h6 class="card-subtitle mb-2 text-muted"></h6>
-                    <p class="card-text">Nume: {{userData.firstName}}</p>
-                    <p class="card-text">Prenume: {{userData.lastName}}</p>
-                    <p class="card-text">Telefon: 0722747426</p>
+                    <div *ngIf="mainAddress">
+                        <h6 class="card-subtitle mb-2 decorate"><small>ADRESA PRINCIPALA</small></h6>
+                        <p class="card-text addresses-p">{{userData.firstName}}&nbsp;{{userData.lastName}}</p>
+                        <p class="card-text addresses-p">0722747426</p>
+                        <p class="card-text addresses-p" *ngIf="mainAddress">{{mainAddress.street}}&nbsp;
+                        {{mainAddress.number}}&nbsp; {{mainAddress.details}}</p>
+                    </div>
+                    <div *ngIf="!mainAddress">
+                        <h6 class="card-subtitle mb-2 decorate"><small>NO STORED ADDRESSES</small></h6>
+                    </div>
                     <div class="account-card-footer">
-                        <button class="btn footer-btn">editeaza</button>
+                        <button class="btn footer-btn action">edit</button>
                     </div>
                 </div>
             </div>
