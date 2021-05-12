@@ -38,7 +38,7 @@
     </tbody>
   </table>
   <button class="btn btn-danger" (click)="clearCart()">Clear Cart</button>
-  <button class="btn btn-primary next-step" (click)="toggleShippingInfo()">Next Step</button>
+  <button class="btn btn-success next-step" (click)="toggleShippingInfo()">Next Step</button>
 </div>
 
 <app-shipping-info (displayNextStep)="getNextStep($event)" [items]="items" *ngIf="nextStep"></app-shipping-info>

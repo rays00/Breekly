@@ -32,3 +32,30 @@
     color: #0f6ec6;
     width: auto;
 }
+
+.user-data {
+    display: flex;
+}
+
+.avatar {
+    background-image: url("../../assets/profile.jpeg");
+    background-repeat: no-repeat;
+    width: 132px;
+    height: 132px;
+    border-radius: 50%;
+}
+
+.data {
+    margin-left: 5%;
+}
+
+.field-name {
+    width: 80px;
+    display: inline-block;
+    color: gray;
+}
+
+.field-name,
+.field-value {
+    font-size: 15px;
+}
