@@ -15,6 +15,7 @@ import { CartComponent } from './cart/cart.component';
 import { ShippingInfoComponent } from './shipping-info/shipping-info.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import {MatSelectModule} from '@angular/material/select';
 
 export function tokenGetter() {
   return localStorage.getItem("AUTH")
@@ -42,7 +43,8 @@ export function tokenGetter() {
     }),
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]
