@@ -5,10 +5,17 @@ var jwt = require('jsonwebtoken');
 var jwtSecret = require('../config/keys').JWT_KEY;
 var checkAuth = require('../middleware/check-auth.js');
 
-/* GET home page. */
 router.get('/', function(req, res, next) {
     Address.find()
     .then(addresses => res.json(addresses));
+});
+
+router.get('/mine', checkAuth, function(req, res, next){
+    decoded = jwt.decode(req.headers.authorization.split(" ")[1], jwtSecret);
+    const userId = decoded.userId
+    Address.find({userId: userId})
+    .then(addresses => res.json(addresses))
+    .catch(err => res.status(500).json({ error: err }));
 });
 
 /* POST products create new product */
