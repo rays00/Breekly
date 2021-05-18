@@ -15,7 +15,9 @@ import { CartComponent } from './cart/cart.component';
 import { ShippingInfoComponent } from './shipping-info/shipping-info.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import {MatSelectModule} from '@angular/material/select';
+import { MatSelectModule } from '@angular/material/select';
+import { MatDialogModule } from '@angular/material/dialog';
+import { EditAddressDialogComponent } from './edit-address-dialog/edit-address-dialog.component';
 
 export function tokenGetter() {
   return localStorage.getItem("AUTH")
@@ -30,7 +32,8 @@ export function tokenGetter() {
     NavbarComponent,
     ProductComponent,
     CartComponent,
-    ShippingInfoComponent
+    ShippingInfoComponent,
+    EditAddressDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -44,7 +47,8 @@ export function tokenGetter() {
     ReactiveFormsModule,
     BrowserAnimationsModule,
     MatProgressSpinnerModule,
-    MatSelectModule
+    MatSelectModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]

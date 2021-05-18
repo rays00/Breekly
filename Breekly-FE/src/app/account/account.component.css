@@ -43,6 +43,7 @@
     width: 132px;
     height: 132px;
     border-radius: 50%;
+    min-width: 132px;
 }
 
 .data {
@@ -58,4 +59,12 @@
 .field-name,
 .field-value {
     font-size: 15px;
+}
+
+.addresses {
+    margin: 1% 0;
+}
+
+.main-address-container {
+    padding: 1em 0;
 }
