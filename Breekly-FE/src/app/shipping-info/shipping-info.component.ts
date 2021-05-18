@@ -75,7 +75,6 @@ export class ShippingInfoComponent implements OnInit {
          }
        )
       } else {
-        console.log(this.selected)
         this.saveSubscription(this.selected, element)
       }
     });

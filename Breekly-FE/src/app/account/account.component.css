@@ -61,10 +61,18 @@
     font-size: 15px;
 }
 
-.addresses {
-    margin: 1% 0;
-}
-
 .main-address-container {
     padding: 1em 0;
+}
+
+.title-container {
+    display: flex;
+}
+
+.card-title {
+    margin-right: 1em;
+}
+
+.card-body {
+    padding: 1rem 1rem 1rem 1rem;
 }

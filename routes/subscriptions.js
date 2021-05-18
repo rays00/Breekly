@@ -12,6 +12,24 @@ router.get('/', function(req, res) {
     .then(subscriptions => res.json(subscriptions));
 })
 
+router.delete('/:id', function(req, res) {
+    const subscriptionId = req.params.id
+    Subscription.deleteOne({_id: subscriptionId})
+    .then(subscription => res.json({"success": "true"}))
+    .catch(err => res.json({"success": "false"}))
+})
+
+router.get('/mine', checkAuth, function(req, res) {
+    decoded = jwt.decode(req.headers.authorization.split(" ")[1], jwtSecret);
+    const userId = decoded.userId
+    Subscription.find({userId: userId})
+    .populate({ path: 'addressId', model: Address })
+    .populate({ path: 'productId', model: Product })
+    .then(subscriptions => {
+        res.json(subscriptions)
+    });
+})
+
 router.post('/', checkAuth, function(req, res) {
     const productId = req.body.productId;
     const period = req.body.period;

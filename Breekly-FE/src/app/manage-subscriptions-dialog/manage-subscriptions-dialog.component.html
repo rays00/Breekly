@@ -1,0 +1,23 @@
+<table class="table" *ngIf="data.subscriptions">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Product</th>
+        <th scope="col">Frequency</th>
+        <th scope="col">Quantity</th>
+        <th scope="col">Address</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let subscription of data.subscriptions; let i = index">
+        <th scope="row">{{i + 1}}</th>
+        <td>{{subscription.productId.name}}</td>
+        <td>{{subscription.period}}</td>
+        <td>{{subscription.qty}}</td>
+        <td>{{subscription.addressId.street}}&nbsp;{{subscription.addressId.number}}</td>
+        <td><button class="btn btn-danger" (click)="removeSubscription(subscription._id)">Remove</button></td>
+      </tr>
+    </tbody>
+  </table>
+  <button class="btn" mat-button mat-dialog-close>Cancel</button>

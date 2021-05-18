@@ -10,6 +10,13 @@ router.get('/', function(req, res, next) {
     .then(addresses => res.json(addresses));
 });
 
+/* GET address by id */
+router.get('/id/:id', function(req, res, next) {
+    Address.findById(req.params.id)
+    .then(address => res.json(address))
+    .catch(err => res.status(404).json({message: "We couldn't find your address."}));
+});
+
 router.get('/mine', checkAuth, function(req, res, next){
     decoded = jwt.decode(req.headers.authorization.split(" ")[1], jwtSecret);
     const userId = decoded.userId

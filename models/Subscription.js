@@ -20,7 +20,8 @@ let SubscriptionSchema = new Schema({
         required: true
     },
     addressId: {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Address",
         required: true
     }
 });
