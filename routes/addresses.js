@@ -18,10 +18,35 @@ router.get('/mine', checkAuth, function(req, res, next){
     .catch(err => res.status(500).json({ error: err }));
 });
 
-/* POST products create new product */
+/* POST Create new address */
 router.post('/', checkAuth, function(req, res) {
     saveAddress(req, res);
 });
+
+/* PUT Update exisitng address */
+
+router.put('/:id', checkAuth, function(req, res){
+    updateAddress(req, res)
+})
+
+function updateAddress(req, res) {
+    decoded = jwt.decode(req.headers.authorization.split(" ")[1], jwtSecret);
+    const userId = decoded.userId
+    Address.findById(req.params.id)
+    .exec()
+    .then(address => {
+        if (!address) {
+            return res.status(404).json({ message: 'We couldn\'t find your address.'})
+        }
+        address.street = req.body.street;
+        address.number = req.body.number;
+        address.details = req.body.details;
+        address.city = req.body.city;
+        address.save()
+        .then(address => res.status(200).json({ message: "Success!", address: address }))
+        .catch(err => res.status(500).json({ error: err }))
+    })
+}
 
 function saveAddress(req, res) {
     decoded = jwt.decode(req.headers.authorization.split(" ")[1], jwtSecret);
