@@ -18,6 +18,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDialogModule } from '@angular/material/dialog';
 import { EditAddressDialogComponent } from './edit-address-dialog/edit-address-dialog.component';
+import { MatIconModule } from '@angular/material/icon';
+import { ManageSubscriptionsDialogComponent } from './manage-subscriptions-dialog/manage-subscriptions-dialog.component';
 
 export function tokenGetter() {
   return localStorage.getItem("AUTH")
@@ -33,7 +35,8 @@ export function tokenGetter() {
     ProductComponent,
     CartComponent,
     ShippingInfoComponent,
-    EditAddressDialogComponent
+    EditAddressDialogComponent,
+    ManageSubscriptionsDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -48,7 +51,8 @@ export function tokenGetter() {
     BrowserAnimationsModule,
     MatProgressSpinnerModule,
     MatSelectModule,
-    MatDialogModule
+    MatDialogModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]

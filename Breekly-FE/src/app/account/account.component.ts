@@ -4,6 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2'
 import { EditAddressDialogComponent } from '../edit-address-dialog/edit-address-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { ManageSubscriptionsDialogComponent } from '../manage-subscriptions-dialog/manage-subscriptions-dialog.component';
 
 
 @Component({
@@ -28,18 +29,17 @@ export class AccountComponent implements OnInit {
         this.userData = data.userData
       }
     )
-    this.http.get<any>("/api/subscriptions").subscribe(
+    
+    this.getMySubscriptions()
+    this.getMyAddresses()
+  }
+
+  getMySubscriptions() {
+    this.http.get<any>("/api/subscriptions/mine").subscribe(
       data => {
-        let subscriptions: { userId: any; }[] = []
-        data.forEach((element: { userId: any; }) => {
-          if (element.userId == this.userData.userId) {
-            subscriptions.push(element)
-          }
-        })
-        this.subscriptions = subscriptions.length
+        this.subscriptions = data
       }
     )
-    this.getMyAddresses()
   }
 
   getMyAddresses() {
@@ -81,6 +81,17 @@ export class AccountComponent implements OnInit {
 
   toggleShowAddresses(): void {
     this.showAddresses = !this.showAddresses
+  }
+
+  toggleManageSubscriptions() {
+    const dialogRef = this.dialog.open(ManageSubscriptionsDialogComponent, {
+      data: {
+        subscriptions: this.subscriptions
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.getMySubscriptions()
+    })
   }
 
   editAddressDialog(address: any) {
