@@ -18,6 +18,7 @@ var usersRouter = require('./routes/users');
 var productsRouter = require('./routes/products');
 var subscriptionsRouter = require('./routes/subscriptions');
 var addressesRouter = require('./routes/addresses');
+var ordersRouter = require('./routes/orders');
 
 var app = express();
 
@@ -33,5 +34,6 @@ app.use('/api/users', usersRouter);
 app.use('/api/products', productsRouter);
 app.use('/api/subscriptions', subscriptionsRouter);
 app.use('/api/addresses', addressesRouter);
+app.use('/api/orders', ordersRouter);
 
 module.exports = app;

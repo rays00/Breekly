@@ -56,6 +56,12 @@
     color: gray;
 }
 
+.field-name-order-id {
+    display: inline-block;
+    color: gray;
+    width: 250px;
+}
+
 .field-name,
 .field-value {
     font-size: 15px;
