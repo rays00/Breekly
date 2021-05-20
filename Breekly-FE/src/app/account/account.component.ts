@@ -15,8 +15,11 @@ import { ManageSubscriptionsDialogComponent } from '../manage-subscriptions-dial
 export class AccountComponent implements OnInit {
 
   userData: any;
+
   subscriptions: any;
   addresses: any;
+  orders: any;
+
   mainAddress: any;
   showAddresses: any;
 
@@ -32,6 +35,24 @@ export class AccountComponent implements OnInit {
     
     this.getMySubscriptions()
     this.getMyAddresses()
+    this.getMyOrders()
+  }
+
+  getMyOrders() {
+    const status: any = []
+    status[0] = 'Pending'
+    status[1] = 'Processing'
+    status[2] = 'Shipped'
+    status[3] = 'Complete'
+
+    this.http.get<any>("/api/orders/mine").subscribe(
+      data => {
+        data.forEach((element: { status: string; }) => {
+          element.status = status[element.status]
+        });
+        this.orders = data
+      }
+    )
   }
 
   getMySubscriptions() {
