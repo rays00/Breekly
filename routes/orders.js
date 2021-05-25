@@ -29,17 +29,20 @@ router.post('/', checkAuth, function(req, res) {
     
     decoded = jwt.decode(req.headers.authorization.split(" ")[1], jwtSecret);
     const userId = decoded.userId
-
     Subscription.findById(subscriptionId)
     .exec()
     .then(subscription => {
         let newOrder = new Order({
             subscriptionId: subscription._id,
         });
+
         newOrder.save()
         .then(order => res.status(200).json({ message: "Success!", order: order }))
         .catch(err => res.status(500).json({ error: err }));
 
+        subscription.lastOrderTime = Date.now()
+        subscription.save()
+        .catch(err => res.status(500).json({error: err}))
     })
     .catch(err => res.status(500).json({ message: 'Specified subscription doesn\'t exist!'}))
 });

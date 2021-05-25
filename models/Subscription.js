@@ -23,6 +23,10 @@ let SubscriptionSchema = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Address",
         required: true
+    },
+    lastOrderTime: {
+        type : Date, 
+        default: Date.parse('01 Jan 1970') 
     }
 });
 SubscriptionSchema.index({ userId: 1, productId: 1, period: 1, qty: 1}, {unique: true});
