@@ -1,15 +1,77 @@
-
-  <div class="container">
+<div class="container">
+  <div class="row">
+    <img
+      src="https://images.unsplash.com/photo-1490818387583-1baba5e638af?ixlib=rb-1.2.1&auto=format&fit=crop&w=1600&h=500&q=60"
+      class="img-fluid" alt="Responsive image">
+  </div>
+  <div class="row">
+    <div class="col-sm centered">
+      <span class="heading-m">250</span>
+      <span>Clienti</span>
+    </div>
+    <div class="col-sm centered">
+      <span class="heading-m">120</span>
+      <span>Subscriptii</span>
+    </div>
+    <div class="col-sm centered">
+      <span class="heading-m">20</span>
+      <span>Comenzi</span>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm" *ngFor="let product of homeProducts">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title" [routerLink]="['product', product._id]">{{product.name}} <span
+              class="badge bg-secondary">New</span></h5>
+          <h6 class="card-subtitle mb-2 text-muted">Top product</h6>
+          <p class="card-text">{{product.description}}</p>
+          <p class="card-text">{{product.price | currency}}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title" [routerLink]="['product']">Layout product <span class="badge bg-secondary">New</span>
+          </h5>
+          <h6 class="card-subtitle mb-2 text-muted">Top product</h6>
+          <p class="card-text">Layout product</p>
+          <p class="card-text">Layout product</p>
+        </div>
+      </div>
+    </div>
     <div class="row">
-      <div class="col-sm" *ngFor="let product of homeProducts">
-        <div class="card" style="width: 18rem;">
-            <div class="card-body">
-              <h5 class="card-title" [routerLink] = "['product', product._id]">{{product.name}} <span class="badge bg-secondary">New</span></h5>
-              <h6 class="card-subtitle mb-2 text-muted">Top product</h6>
-              <p class="card-text">{{product.description}}</p>
-              <p class="card-text">{{product.price | currency}}</p>
-            </div>
-          </div>
+      <div class="col-sm">
+        <h1>Povestea noastra...</h1>
+        <span class="nostalgic">LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM
+          LOREM IPSUM LOREM IPSUM
+          LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM
+          LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM
+          LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM
+          LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM
+          LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM
+          LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM
+        </span>
+      </div>
+    </div>
+    <div class="row">
+      <span class="heading-sm">Cum functionam?</span>
+      <div class="col-sm">
+        <mat-icon aria-hidden="false" aria-label="Example home icon">computer</mat-icon>
+        <p class="no-margin heading-xs">Te inregistrezi pe site, apoi alegi ce produse doresti si cantitatile lor.</p>
+        <p class="no-margin heading-xs">Poti avea o singura subscriptie pentru aceeasi combinatie de produs-cantitate.</p>
+      </div>
+      <div class="col-sm">
+        <mat-icon aria-hidden="false" aria-label="Example home icon">description</mat-icon>
+        <p class="no-margin heading-xs">Apoi trimiti comanda furnizandu-ne adresa si astfel creezi o subscriptie.</p>
+        <p class="no-margin heading-xs">Pentru fiecare produs din comanda se va creea cate o subscriptie.</p>
+      </div>
+      <div class="col-sm">
+        <mat-icon aria-hidden="false" aria-label="Example home icon">done</mat-icon>
+        <p class="no-margin heading-xs">In fiecare dimineata la ora 1 o comanda pentru fiecare subscriptie va pleca spre tine.</p>
+        <p class="no-margin heading-xs">Comenzile le poti urmari din pagina contului impreuna cu statusul acestora.</p>
       </div>
     </div>
   </div>
+</div>
