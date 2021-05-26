@@ -14,3 +14,7 @@
  .decrease-qty:hover {
     cursor: pointer;
 }
+
+.heading-l {
+    font-size: 80px;
+}

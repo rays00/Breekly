@@ -13,3 +13,41 @@
 .card-title:hover {
     cursor: pointer
 }
+
+.heading-m {
+    color: black;
+    font-weight: 500;
+    font-size: 60px;
+}
+   
+.centered {
+    text-align: center;
+    display: grid;
+}
+
+.row {
+    margin-bottom: 3em;
+    margin-top: 3em;
+}
+
+.background-light {
+    background-color: #f3f4f8
+}
+
+.nostalgic {
+    color: #585454;
+    font-weight: 100;
+}
+
+.heading-sm {
+    font-size: 45px;
+}
+
+.no-margin {
+    margin: 0;
+}
+
+.heading-xs {
+    font-weight: 100;
+    font-size: 15px;
+}
