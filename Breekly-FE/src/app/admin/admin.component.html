@@ -19,6 +19,11 @@
               <th mat-header-cell *matHeaderCellDef> Produs </th>
               <td mat-cell *matCellDef="let element"> {{element.subscriptionId.productId.name}} </td>
             </ng-container>
+
+            <ng-container matColumnDef="qty">
+              <th mat-header-cell *matHeaderCellDef> Cantitate </th>
+              <td mat-cell *matCellDef="let element"> {{element.subscriptionId.qty}} </td>
+            </ng-container>
           
             <!-- Weight Column -->
             <ng-container matColumnDef="address">

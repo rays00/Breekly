@@ -32,17 +32,42 @@ export class ShippingInfoComponent implements OnInit {
       },
       error => {
         this.loader = false
-        Swal.fire({
-          title: 'Error!',
-          text: 'Check if you are logged in or if you have one of the products as a subscription.',
-          icon: 'error',
-          confirmButtonText: 'OK'
-        })
+        switch(error.status) {
+          case 401: {
+            Swal.fire({
+              title: 'Eroare!',
+              html:
+              'Nu esti logat.',
+              icon: 'error',
+              confirmButtonText: 'OK'
+            })
+            break
+          }
+          case 500: {
+            Swal.fire({
+              title: 'Eroare!',
+              html:
+              'Subscriptia cu selectia curenta de produs-cantitate exista deja.',
+              icon: 'error',
+              confirmButtonText: 'OK'
+            })
+            break
+          }
+        }
       }
     )
   }
 
   onSubmit() {
+    if (!this.selected) {
+      Swal.fire({
+        title: 'Eroare!',
+        text: 'Te rugam selecteaza o adresa de livrare!',
+        icon: 'error',
+        confirmButtonText: 'OK'
+      })
+      return
+    }
     this.loader = true
     this.items.forEach((element: any) => {
       if (this.selected === 'new') {

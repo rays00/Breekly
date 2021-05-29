@@ -11,4 +11,8 @@ export class AuthService {
   isAuthenticated() {
     return this.http.get('/api/users/validate-request');
   }
+
+  isAdminAuthenticated() {
+    return this.http.get('/api/users/validate-admin-request');
+  }
 }
