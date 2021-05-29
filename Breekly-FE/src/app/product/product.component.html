@@ -15,7 +15,8 @@
                 <div class="card-body">
                     <h5 class="card-title">Actions</h5>
                     <p class="card-text">Description: {{product.description}}</p>
-                    <button class="btn btn-primary" (click)="addToCart(product)">Add to Cart</button>
+                    <p class="card-text" *ngIf="!product.availability">Produs indisponibil</p>
+                    <button *ngIf="product.availability" class="btn btn-primary" (click)="addToCart(product)">Add to Cart</button>
                 </div>
             </div>
         </div>

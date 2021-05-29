@@ -33,8 +33,8 @@ export class ShippingInfoComponent implements OnInit {
       error => {
         this.loader = false
         Swal.fire({
-          title: 'We\'re sorry!',
-          text: 'It seems that you already have an active subscription with the same items. Go to your account to check it.',
+          title: 'Error!',
+          text: 'Check if you are logged in or if you have one of the products as a subscription.',
           icon: 'error',
           confirmButtonText: 'OK'
         })
