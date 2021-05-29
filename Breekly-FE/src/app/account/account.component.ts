@@ -42,8 +42,9 @@ export class AccountComponent implements OnInit {
     const status: any = []
     status[0] = 'Pending'
     status[1] = 'Processing'
-    status[2] = 'Shipped'
+    status[2] = 'Shipping'
     status[3] = 'Complete'
+    status[4] = 'Canceled'
 
     this.http.get<any>("/api/orders/mine").subscribe(
       data => {

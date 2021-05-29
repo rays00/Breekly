@@ -9,6 +9,8 @@ var jwt = require('jsonwebtoken');
 
 router.get('/', function(req, res) {
     Subscription.find()
+    .populate({ path: 'addressId', model: Address })
+    .populate({ path: 'productId', model: Product })
     .then(subscriptions => res.json(subscriptions));
 })
 
@@ -28,6 +30,21 @@ router.get('/mine', checkAuth, function(req, res) {
     .then(subscriptions => {
         res.json(subscriptions)
     });
+})
+
+router.put('/', function(req, res) {
+    const subscriptionId = req.body.subscriptionId;
+    const newAvailability = req.body.newAvailability;
+
+    Subscription.findById(subscriptionId)
+    .exec()
+    .then(subscription => {
+        subscription.isActive = newAvailability;
+        subscription.save()
+        .then(subscription => res.status(200).json({ message: "Success!", subscription: subscription }))
+        .catch(err => res.status(500).json({ error: err }));
+    })
+    .catch(err => res.status(500).json({ message: 'Specified subscription doesn\'t exist!', error: err }))
 })
 
 router.post('/', checkAuth, function(req, res) {

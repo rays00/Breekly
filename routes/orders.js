@@ -7,6 +7,8 @@ var jwt = require('jsonwebtoken');
 
 router.get('/', function(req, res) {
     Order.find()
+    .populate({ path: 'subscriptionId', model: Subscription,
+        populate: [{ path: 'productId', model: Product }, { path: 'addressId', model: Address}] })
     .then(orders => res.json(orders));
 })
 
@@ -40,11 +42,23 @@ router.post('/', checkAuth, function(req, res) {
         .then(order => res.status(200).json({ message: "Success!", order: order }))
         .catch(err => res.status(500).json({ error: err }));
 
-        subscription.lastOrderTime = Date.now()
         subscription.save()
         .catch(err => res.status(500).json({error: err}))
     })
     .catch(err => res.status(500).json({ message: 'Specified subscription doesn\'t exist!'}))
+});
+
+router.put('/', function(req, res) {
+    const orderId = req.body.orderId;
+    const newStatus = req.body.status
+    Order.findById(orderId)
+    .exec()
+    .then(order => {
+        order.status = newStatus
+        order.save()
+        .then(order => res.status(200).json({ message: "Success!", order: order}))
+        .catch(err => res.status(500).json({ error: err}));
+    })
 });
 
 module.exports = router;
