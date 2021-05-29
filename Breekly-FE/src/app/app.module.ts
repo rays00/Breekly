@@ -20,6 +20,12 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { EditAddressDialogComponent } from './edit-address-dialog/edit-address-dialog.component';
 import { MatIconModule } from '@angular/material/icon';
 import { ManageSubscriptionsDialogComponent } from './manage-subscriptions-dialog/manage-subscriptions-dialog.component';
+import { AdminComponent } from './admin/admin.component';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatTableModule } from '@angular/material/table';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { EditProductDialogComponent } from './edit-product-dialog/edit-product-dialog.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 export function tokenGetter() {
   return localStorage.getItem("AUTH")
@@ -36,7 +42,10 @@ export function tokenGetter() {
     CartComponent,
     ShippingInfoComponent,
     EditAddressDialogComponent,
-    ManageSubscriptionsDialogComponent
+    ManageSubscriptionsDialogComponent,
+    AdminComponent,
+    PageNotFoundComponent,
+    EditProductDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -52,7 +61,10 @@ export function tokenGetter() {
     MatProgressSpinnerModule,
     MatSelectModule,
     MatDialogModule,
-    MatIconModule
+    MatIconModule,
+    MatTabsModule,
+    MatTableModule,
+    MatCheckboxModule
   ],
   providers: [],
   bootstrap: [AppComponent]

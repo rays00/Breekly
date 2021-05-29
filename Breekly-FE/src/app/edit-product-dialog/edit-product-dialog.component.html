@@ -1,0 +1,29 @@
+<h2 mat-dialog-title>{{data.name}}</h2>
+<mat-dialog-content class="mat-typography">
+  <form [formGroup]="editProductForm">
+    <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" class="form-control" id="name" aria-describedby="name"
+            formControlName="name">
+    </div>
+    <div class="form-group">
+        <label for="description">Description</label>
+        <textarea class="form-control" id="description" aria-describedby="description"
+            formControlName="description"></textarea>
+    </div>
+    <div class="form-group">
+        <label for="price">Price</label>
+        <input type="text" class="form-control" id="price" aria-describedby="price"
+            formControlName="price">
+    </div>
+    <div class="form-group">
+        <label for="availability">Availability&nbsp;</label>
+        <input type="checkbox" id="availability" aria-describedby="availability"
+            formControlName="availability">
+    </div>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button class="btn" mat-button mat-dialog-close>Cancel</button>
+  <button class="btn" mat-button [mat-dialog-close]="editProductForm" cdkFocusInitial>Save</button>
+</mat-dialog-actions>

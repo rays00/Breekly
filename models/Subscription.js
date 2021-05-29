@@ -24,9 +24,10 @@ let SubscriptionSchema = new Schema({
         ref: "Address",
         required: true
     },
-    lastOrderTime: {
-        type : Date, 
-        default: Date.parse('01 Jan 1970') 
+    isActive: {
+        type: Boolean,
+        required: true,
+        default: true
     }
 });
 SubscriptionSchema.index({ userId: 1, productId: 1, period: 1, qty: 1}, {unique: true});

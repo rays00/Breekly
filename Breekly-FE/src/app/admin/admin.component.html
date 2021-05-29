@@ -1,0 +1,136 @@
+<mat-tab-group mat-align-tabs="center">
+    <mat-tab label="Orders">
+        <table mat-table [dataSource]="ordersDataSource" class="mat-elevation-z8">
+
+            <!--- Note that these columns can be defined in any order.
+                  The actual rendered columns are set as a property on the row definition" -->
+          
+            <!-- Position Column -->
+            <ng-container matColumnDef="id">
+              <th mat-header-cell *matHeaderCellDef> ID </th>
+              
+              <td mat-cell *matCellDef="let element"> 
+                {{element._id | slice:-5 }} 
+              </td>
+            </ng-container>
+          
+            <!-- Name Column -->
+            <ng-container matColumnDef="product">
+              <th mat-header-cell *matHeaderCellDef> Produs </th>
+              <td mat-cell *matCellDef="let element"> {{element.subscriptionId.productId.name}} </td>
+            </ng-container>
+          
+            <!-- Weight Column -->
+            <ng-container matColumnDef="address">
+              <th mat-header-cell *matHeaderCellDef> Adresa </th>
+              <td mat-cell *matCellDef="let element"> {{element.subscriptionId.addressId.street | slice:5}}&nbsp;{{element.subscriptionId.addressId.number}}</td>
+            </ng-container>
+          
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="status">
+              <th mat-header-cell *matHeaderCellDef> Status </th>
+              <td mat-cell *matCellDef="let element"> {{status[element.status]}} </td>
+            </ng-container>
+            
+            <ng-container matColumnDef="action">
+                <th mat-header-cell *matHeaderCellDef>Actiune</th>
+                <td mat-cell *matCellDef="let element">
+                    <button class="btn" *ngIf="element.status != 3">
+                        <mat-icon aria-hidden="false" (click)="nextStatus(element)" aria-label="Example home icon">arrow_right_alt</mat-icon>
+                    </button>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="cancel-action">
+              <th mat-header-cell *matHeaderCellDef>Anuleaza</th>
+              <td mat-cell *matCellDef="let element">
+                  <button class="btn">
+                      <mat-icon aria-hidden="false" (click)="cancelOrder(element)" aria-label="Example home icon">close</mat-icon>
+                  </button>
+              </td>
+          </ng-container>
+          
+            <tr mat-header-row *matHeaderRowDef="displayedColumnsOrders"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumnsOrders;"></tr>
+          </table>
+    </mat-tab>
+    <mat-tab label="Subscriptions">
+        <table mat-table [dataSource]="subscriptionsDataSource" class="mat-elevation-z8">
+
+            <!--- Note that these columns can be defined in any order.
+                  The actual rendered columns are set as a property on the row definition" -->
+          
+            <!-- Position Column -->
+            <ng-container matColumnDef="id">
+              <th mat-header-cell *matHeaderCellDef> ID </th>
+              <td mat-cell *matCellDef="let element"> {{element._id | slice: -5}} </td>
+            </ng-container>
+          
+            <!-- Name Column -->
+            <ng-container matColumnDef="product">
+              <th mat-header-cell *matHeaderCellDef> Produs </th>
+              <td mat-cell *matCellDef="let element"> {{element.productId.name | slice: 0:5}}... </td>
+            </ng-container>
+          
+            <!-- Weight Column -->
+            <ng-container matColumnDef="qty">
+              <th mat-header-cell *matHeaderCellDef> Cantitate </th>
+              <td mat-cell *matCellDef="let element"> {{element.qty}} </td>
+            </ng-container>
+          
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="address">
+              <th mat-header-cell *matHeaderCellDef> Adresa </th>
+              <td mat-cell *matCellDef="let element"> {{element.addressId.street}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="action">
+                <th mat-header-cell *matHeaderCellDef> Actiune </th>
+                <td mat-cell *matCellDef="let element">
+                  <button *ngIf="element.isActive" class="btn" (click)="toggleSubscription(element, false)">
+                    <mat-icon aria-hidden="false" aria-label="Example home icon">close</mat-icon>
+                  </button>
+                  <button *ngIf="!element.isActive" class="btn" (click)="toggleSubscription(element, true)">
+                    <mat-icon aria-hidden="false" aria-label="Example home icon">done</mat-icon>
+                  </button>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumnsSubscriptions"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumnsSubscriptions;"></tr>
+          </table>
+    </mat-tab>
+    <mat-tab label="Products">
+                <table mat-table [dataSource]="productsDataSource" class="mat-elevation-z8">
+
+            <!--- Note that these columns can be defined in any order.
+                  The actual rendered columns are set as a property on the row definition" -->
+          
+            <!-- Position Column -->
+            <ng-container matColumnDef="id">
+              <th mat-header-cell *matHeaderCellDef> ID </th>
+              <td mat-cell *matCellDef="let element"> {{element._id | slice: -5}} </td>
+            </ng-container>
+          
+            <!-- Name Column -->
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef> Nume </th>
+              <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+            </ng-container>
+          
+            <!-- Weight Column -->
+            <ng-container matColumnDef="price">
+              <th mat-header-cell *matHeaderCellDef> Pret </th>
+              <td mat-cell *matCellDef="let element"> {{element.price | currency}} </td>
+            </ng-container>
+                        
+            <ng-container matColumnDef="action">
+                <th mat-header-cell *matHeaderCellDef> Actiune </th>
+                <td mat-cell *matCellDef="let element"><button class="btn" (click)="editProductDialog(element)"><mat-icon aria-hidden="false" aria-label="Example home icon">edit</mat-icon></button></td>
+            </ng-container>
+          
+            <tr mat-header-row *matHeaderRowDef="displayedColumnsProducts"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumnsProducts;"></tr>
+          </table>
+    </mat-tab>
+  </mat-tab-group>
