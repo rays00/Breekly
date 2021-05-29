@@ -74,7 +74,7 @@ export class AccountComponent implements OnInit {
           }
         });
         this.addresses = addresses
-        this.mainAddress = addresses[1]
+        this.mainAddress = addresses[0]
       }
     )
   }

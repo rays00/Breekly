@@ -23,6 +23,14 @@ router.get('/validate-request', checkAuth, function(req, res, next) {
   return res.status(200).json({ message: 'Valid'})
 })
 
+router.get('/validate-admin-request', checkAuth, function(req, res, next) {
+  decoded = jwt.verify(req.headers.authorization.split(" ")[1], jwtSecret);
+  if (decoded.isAdmin) {
+    return res.status(200).json({ message: 'Valid'})
+  }
+  return res.status(401).json({ message: 'Invalid'})
+})
+
 /* POST users create new user */
 router.post('/', function(req, res) {
   User.findOne({ email: req.body.email})
@@ -31,7 +39,7 @@ router.post('/', function(req, res) {
       if (user) {
         return res.status(409).json({ message: 'Email address already exists.'})
       }
-      saveUser(res, req.body.email, req.body.password, req.body.firstName, req.body.lastName);
+      saveUser(res, req.body.email, req.body.password, req.body.firstName, req.body.lastName, req.body.isAdmin);
     })
 });
 
@@ -101,6 +109,7 @@ function loginUser(req, res, user) {
     if (result === false) {
       return res.status(401).json({ message: "Auth failed." });
     }
+    console.log(user.isAdmin)
     // Generate user token
     var token = jwt.sign({
       userId: user._id,
@@ -118,13 +127,14 @@ function loginUser(req, res, user) {
   });
 }
 
-function saveUser(res, email, password, firstName, lastName) {
+function saveUser(res, email, password, firstName, lastName, isAdmin) {
   bcrypt.hash(password, saltRounds, function(err, hash) {
     let newUser = new User({
       email: email,
       password: hash,
       firstName: firstName,
-      lastName: lastName
+      lastName: lastName,
+      isAdmin: isAdmin,
     });
     newUser.save()
       .then(user => res.status(200).json({ message: "Success!", user: user }))

@@ -13,7 +13,7 @@ export class AdminComponent implements OnInit {
 
   displayedColumnsSubscriptions: string[] = ['id', 'product', 'qty', 'address', 'action'];
   displayedColumnsProducts: string[] = ['id', 'name', 'price', 'action'];
-  displayedColumnsOrders: string[] = ['id', 'product', 'address', 'status', 'action', 'cancel-action'];
+  displayedColumnsOrders: string[] = ['id', 'product', 'qty', 'address', 'status', 'action', 'cancel-action'];
   ordersDataSource: any;
   subscriptionsDataSource: any;
   productsDataSource: any;
