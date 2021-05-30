@@ -16,6 +16,12 @@ export class LoginComponent implements OnInit {
     password: new FormControl(''),
   });
 
+  resetPasswordForm = new FormGroup({
+    email: new FormControl(''),
+    code: new FormControl(''),
+    newPassword: new FormControl('')
+  });
+
   registerForm = new FormGroup({
     email: new FormControl(''),
     password: new FormControl(''),
@@ -24,7 +30,71 @@ export class LoginComponent implements OnInit {
   });
 
   showLogin = false;
+  showRegister = true;
+  showResetPassword = false;
+
+  resetPasswordEmailSent = false
+
   constructor(private http: HttpClient, private router: Router) { }
+
+  resetPasswordOnSubmit() {
+    let email = this.resetPasswordForm.value.email
+    if (!this.resetPasswordForm.value.code) {
+      this.http.post<any>('/api/users/reset', {email: email}).subscribe(
+        data => {
+          this.resetPasswordEmailSent = true
+          Swal.fire({
+            title: 'Trimis!',
+            text: 'Emailul cu codul pentru resetarea parolei a fost trimis.',
+            icon: 'success',
+            confirmButtonText: 'OK'
+          })
+        },
+        err => {
+          Swal.fire({
+            title: 'Eroare!',
+            text: 'Nu am gasit un cont asociat cu acest email.',
+            icon: 'error',
+            confirmButtonText: 'OK'
+          })
+        }
+      )
+    } else {
+      let newPassword = this.resetPasswordForm.value.newPassword
+      let code = this.resetPasswordForm.value.code
+      let classInstance = this
+      this.http.get<any>('/api/users').subscribe(
+        data => {
+          console.log(data)
+          data.forEach(function(item: any, index: any) {
+            if (item.email == email) {
+              if (item.resetPasswordCode == code) {
+                classInstance.http.put<any>('/api/users', {email: email, password: newPassword}).subscribe(
+                  data => {
+                    Swal.fire({
+                      title: 'Salvat!',
+                      text: 'Parola a fost actualizata cu succes',
+                      icon: 'success',
+                      confirmButtonText: 'OK'
+                    })
+                  },
+                  err => {
+                    Swal.fire({
+                      title: 'Eroare!',
+                      text: 'A intervenit o eroare.',
+                      icon: 'error',
+                      confirmButtonText: 'OK'
+                    })
+                  }
+                )
+              }
+              return
+            }
+          })
+        }
+      )
+    }
+  }
 
   loginOnSubmit() {
     this.http.post<any>("/api/users/login", {email: this.loginForm.value.email, password: this.loginForm.value.password}).subscribe(
@@ -33,6 +103,7 @@ export class LoginComponent implements OnInit {
         localStorage.setItem("AUTH", data.token)
       },
       err => {
+        this.toggleForms(true, false, false)
         Swal.fire({
           title: 'Error!',
           text: 'Wrong username or password',
@@ -78,8 +149,9 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  toggleForms() {
-    this.showLogin = !this.showLogin
+  toggleForms(showLoginForm: any, showRegisterForm: any, showResetPasswordForm: any) {
+    this.showLogin = showLoginForm
+    this.showRegister = showRegisterForm
+    this.showResetPassword = showResetPasswordForm
   }
-
 }
