@@ -11,6 +11,7 @@ router.get('/', function(req, res) {
     Subscription.find()
     .populate({ path: 'addressId', model: Address })
     .populate({ path: 'productId', model: Product })
+    .populate({ path: 'userId', model: User })
     .then(subscriptions => res.json(subscriptions));
 })
 
