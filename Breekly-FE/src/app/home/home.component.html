@@ -1,7 +1,14 @@
 <div class="container">
   <div class="row">
+    <form [formGroup]="searchForm">
+      <div class="form-group">
+        <input (change)="search()" type="text" placeholder="Search" class="form-control" id="exampleInputEmail1" formControlName="searchInput">
+      </div>
+    </form>
+  </div>
+  <div class="row">
     <img
-      src="https://via.placeholder.com/2500x950"
+      src="https://via.placeholder.com/2500x550"
       class="img-fluid" alt="Responsive image">
   </div>
   <div class="row">
@@ -18,10 +25,11 @@
       <span>Comenzi</span>
     </div>
   </div>
-  <div class="row">
+  <div class="row justify-content-center" id="products">
     <div class="col-sm" *ngFor="let product of homeProducts">
       <div class="card">
-        <div class="card-body">
+        <div class="card-body ta-center">
+          <img src="https://pngimg.com/uploads/water_bottle/water_bottle_PNG98959.png" width="192" alt="">
           <h5 class="card-title" [routerLink]="['product', product._id]">{{product.name}} <span
               class="badge bg-secondary">New</span></h5>
           <h6 class="card-subtitle mb-2 text-muted">Top product</h6>
@@ -30,16 +38,8 @@
         </div>
       </div>
     </div>
-    <div class="col-sm">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title" [routerLink]="['product']">Layout product <span class="badge bg-secondary">New</span>
-          </h5>
-          <h6 class="card-subtitle mb-2 text-muted">Top product</h6>
-          <p class="card-text">Layout product</p>
-          <p class="card-text">Layout product</p>
-        </div>
-      </div>
+    <div class="col-12 centered" *ngIf="noSearchResults">
+      <h2>Nu am gasit niciun rezultat pentru cautarea ta.</h2>
     </div>
     <div class="row">
       <div class="col-sm">
