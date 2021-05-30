@@ -58,16 +58,12 @@
                         <mat-icon aria-hidden="false" aria-label="Example home icon">house</mat-icon>
                     </div>
                     <div class="main-address-container" *ngIf="mainAddress">
-                        <h6 class="card-subtitle mb-2 decorate"><small>ADRESA PRINCIPALA</small></h6>
-                        <p class="card-text addresses-p">{{userData.firstName}}&nbsp;{{userData.lastName}}</p>
-                        <p class="card-text addresses-p">0722747426</p>
-                        <p class="card-text addresses-p" *ngIf="mainAddress">{{mainAddress.street}}&nbsp;
-                            {{mainAddress.number}}&nbsp; {{mainAddress.details}}</p>
+                        <h6 class="card-subtitle mb-2 decorate"><small>De aici iti poti modifica adresele de livrare.</small></h6>
                     </div>
                     <div *ngIf="!mainAddress">
-                        <h6 class="card-subtitle mb-2 decorate"><small>NO STORED ADDRESSES</small></h6>
+                        <h6 class="card-subtitle mb-2 decorate"><small>Nu ai nicio adresa salvata.</small></h6>
                     </div>
-                    <div class="account-card-footer">
+                    <div class="account-card-footer" *ngIf="mainAddress">
                         <button class="btn footer-btn action" (click)="toggleShowAddresses()"><mat-icon aria-hidden="false" aria-label="Example home icon">settings</mat-icon></button>
                     </div>
                     <div *ngIf="showAddresses">
