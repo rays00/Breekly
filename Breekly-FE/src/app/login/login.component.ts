@@ -16,9 +16,17 @@ export class LoginComponent implements OnInit {
     password: new FormControl(''),
   });
 
+  registerForm = new FormGroup({
+    email: new FormControl(''),
+    password: new FormControl(''),
+    lastName: new FormControl(''),
+    firstName: new FormControl(''),
+  });
+
+  showLogin = false;
   constructor(private http: HttpClient, private router: Router) { }
 
-  onSubmit() {
+  loginOnSubmit() {
     this.http.post<any>("/api/users/login", {email: this.loginForm.value.email, password: this.loginForm.value.password}).subscribe(
       data => {
         this.router.navigateByUrl('/account')
@@ -35,7 +43,43 @@ export class LoginComponent implements OnInit {
     )
   }
 
+  registerOnSubmit() {
+    this.http.post<any>("/api/users", {
+      email: this.registerForm.value.email,
+      password: this.registerForm.value.password,
+      lastName: this.registerForm.value.lastName,
+      firstName: this.registerForm.value.firstName,
+      isAdmin: false
+    }).subscribe(
+      data => {
+        this.router.navigateByUrl('/account')
+        localStorage.setItem("AUTH", data.token)
+      },
+      err => {
+        if (err.status === 409) {
+          Swal.fire({
+            title: 'Eroare!',
+            text: 'Se pare ca exista un cont cu aceasta adresa de email.',
+            icon: 'error',
+            confirmButtonText: 'OK'
+          })
+        } else {
+          Swal.fire({
+            title: 'Eroare!',
+            text: 'Verifica datele si incearca din nou!',
+            icon: 'error',
+            confirmButtonText: 'OK'
+          })
+        }
+      }
+    )
+  }
+
   ngOnInit(): void {
+  }
+
+  toggleForms() {
+    this.showLogin = !this.showLogin
   }
 
 }

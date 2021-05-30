@@ -26,6 +26,7 @@ import { MatTableModule } from '@angular/material/table';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { EditProductDialogComponent } from './edit-product-dialog/edit-product-dialog.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatBadgeModule } from '@angular/material/badge';
 
 export function tokenGetter() {
   return localStorage.getItem("AUTH")
@@ -64,7 +65,8 @@ export function tokenGetter() {
     MatIconModule,
     MatTabsModule,
     MatTableModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatBadgeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

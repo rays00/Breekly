@@ -1,0 +1,10 @@
+.centered {
+    margin: auto; 
+    width: 22rem;
+    min-height: 36rem;
+    padding: 1em;
+}
+
+.form-group {
+    margin-bottom: 1em;
+}
