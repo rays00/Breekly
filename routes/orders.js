@@ -22,6 +22,9 @@ router.get('/mine', checkAuth, function(req, res) {
         var myOrders = orders.filter(function(order){
             return order.subscriptionId.userId == userId;
         });
+        myOrders = myOrders.sort(function (order1, order2) {
+            return order2.time - order1.time
+        })
         res.json(myOrders)
     });
 })

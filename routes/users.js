@@ -109,7 +109,6 @@ function loginUser(req, res, user) {
     if (result === false) {
       return res.status(401).json({ message: "Auth failed." });
     }
-    console.log(user.isAdmin)
     // Generate user token
     var token = jwt.sign({
       userId: user._id,
@@ -137,7 +136,18 @@ function saveUser(res, email, password, firstName, lastName, isAdmin) {
       isAdmin: isAdmin,
     });
     newUser.save()
-      .then(user => res.status(200).json({ message: "Success!", user: user }))
+      .then(user => {
+        var token = jwt.sign({
+          userId: user._id,
+          email: user.email,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          isAdmin: user.isAdmin,
+        }, jwtSecret, {
+          expiresIn: "1h"
+        });
+        res.status(200).json({ message: "Success!", user: user, token: token })
+      })
       .catch(err => res.status(500).json({ error: err }));
   })
 }
