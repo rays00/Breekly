@@ -10,60 +10,76 @@ var checkAuth = require('../middleware/check-auth.js');
 var nodemailer = require('nodemailer');
 
 /* GET users listing. */
-router.get('/', function(req, res, next) {
+router.get('/', function (req, res, next) {
   User.find()
-  .then(users => res.json(users));
+    .then(users => res.json(users));
 });
 
 router.get('/user-data', checkAuth, function (req, res, next) {
-  return res.status(200).json({userData: jwt.decode(req.headers.authorization.split(" ")[1])})
+  return res.status(200).json({ userData: jwt.decode(req.headers.authorization.split(" ")[1]) })
 })
 
-router.get('/validate-request', checkAuth, function(req, res, next) {
-  return res.status(200).json({ message: 'Valid'})
+router.put('/', function (req, res, next) {
+  User.findOne({ email: req.body.email })
+  .then(user => {
+    bcrypt.hash(req.body.password, saltRounds, function (err, hash) {
+      // Update hash as a password in DB
+      user.password = hash
+      user.save()
+      .then(user => {
+        res.status(200).json({ message: "New user data saved." })
+      })
+      .catch(err => res.status(500).json({ error: err }));
+    });
+  })
+  .catch(err => res.status(500).json({ error: err }));
 })
 
-router.get('/validate-admin-request', checkAuth, function(req, res, next) {
+router.get('/validate-request', checkAuth, function (req, res, next) {
+  return res.status(200).json({ message: 'Valid' })
+})
+
+router.get('/validate-admin-request', checkAuth, function (req, res, next) {
   decoded = jwt.verify(req.headers.authorization.split(" ")[1], jwtSecret);
   if (decoded.isAdmin) {
-    return res.status(200).json({ message: 'Valid'})
+    return res.status(200).json({ message: 'Valid' })
   }
-  return res.status(401).json({ message: 'Invalid'})
+  return res.status(401).json({ message: 'Invalid' })
 })
 
 /* POST users create new user */
-router.post('/', function(req, res) {
-  User.findOne({ email: req.body.email})
+router.post('/', function (req, res) {
+  User.findOne({ email: req.body.email })
     .exec()
     .then(user => {
       if (user) {
-        return res.status(409).json({ message: 'Email address already exists.'})
+        return res.status(409).json({ message: 'Email address already exists.' })
       }
       saveUser(res, req.body.email, req.body.password, req.body.firstName, req.body.lastName, req.body.isAdmin);
     })
 });
 
 /* POST users login */
-router.post('/login', function(req, res) {
-  User.findOne({ email: req.body.email})
+router.post('/login', function (req, res) {
+  User.findOne({ email: req.body.email })
     .exec()
     .then(user => {
       if (!user) {
-        return res.status(401).json({ message: 'Auth failed.'})
+        return res.status(401).json({ message: 'Auth failed.' })
       }
       loginUser(req, res, user);
     })
 });
 
-router.post('/reset', function(req, res) {
+router.post('/reset', function (req, res) {
   User.findOne({ email: req.body.email })
-  .exec()
-  .then(user => {
-    if (!user) {
-      return res.status(404).json({ message: 'Couldn\'t find an account associated with this email.'})
-    }
-    resetPassword(req, res, user);
-  })
+    .exec()
+    .then(user => {
+      if (!user) {
+        return res.status(404).json({ message: 'Couldn\'t find an account associated with this email.' })
+      }
+      resetPassword(req, res, user);
+    })
 })
 
 function resetPassword(req, res, user) {
@@ -75,37 +91,36 @@ function resetPassword(req, res, user) {
     }
   });
 
-  let newPass = ""
-  for (let i = 0; i < 8; i++) {
-    newPass += parseInt(Math.floor(Math.random() * 9) + 0)
+  let code = ""
+  for (let i = 0; i < 4; i++) {
+    code += parseInt(Math.floor(Math.random() * 9) + 0)
   }
 
   var mailOptions = {
     from: 'bdangabriel@gmail.com',
     to: req.body.email,
     subject: 'Breekly - Password reset',
-    text: newPass
+    text: 'Foloseste codul ' + code + ' pentru a-ti reseta parola pe Breekly.'
   };
 
-  bcrypt.hash(newPass, saltRounds, function(err, hash) {
-    // Update hash as a password in DB
-    user.password = hash
-    user.save()
-    .then(user => {
-      transporter.sendMail(mailOptions, function(error, info){
-        if (error) {
-          return res.status(500).json({err: error})
-        } else {
-          return res.status(200).json({message: "An email with the new password was sent."})
-        }
-      });
-    })
-    .catch(err => res.status(500).json({error: err}));
+  transporter.sendMail(mailOptions, function (error, info) {
+    if (error) {
+      return res.status(500).json({ err: error })
+    } else {
+      return res.status(200).json({ message: "An email with the code was sent." })
+    }
   });
+
+  user.resetPasswordCode = code
+  user.save()
+    .then(user => {
+      res.status(200).json({ message: "Reset password code applied on user." })
+    })
+    .catch(err => res.status(500).json({ error: err }));
 }
 
 function loginUser(req, res, user) {
-  bcrypt.compare(req.body.password, user.password, function(err, result) {
+  bcrypt.compare(req.body.password, user.password, function (err, result) {
     if (result === false) {
       return res.status(401).json({ message: "Auth failed." });
     }
@@ -127,7 +142,7 @@ function loginUser(req, res, user) {
 }
 
 function saveUser(res, email, password, firstName, lastName, isAdmin) {
-  bcrypt.hash(password, saltRounds, function(err, hash) {
+  bcrypt.hash(password, saltRounds, function (err, hash) {
     let newUser = new User({
       email: email,
       password: hash,

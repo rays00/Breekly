@@ -20,11 +20,14 @@
                 <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password"  formControlName="password">
               </div>
               <button type="submit" class="btn btn-primary">Trimite</button>
-              <button type="submit" (click)="toggleForms()" class="btn">Nu ai cont?</button>
+              <button type="submit" (click)="toggleForms(false, true, false)" class="btn">Nu ai cont?</button>
           </form>
         </div>
+        <div class="card-footer">
+          <button type="submit" (click)="toggleForms(false, false, true)" class="btn">Resetare parola</button>
+        </div>
       </div>
-      <div class="card centered" *ngIf="!showLogin">
+      <div class="card centered" *ngIf="showRegister">
         <div class="card-body">
           <!-- <h5 class="card-title">Card title</h5>
           <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
@@ -51,7 +54,44 @@
                 <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Ex: Popescu"  formControlName="lastName">
               </div>
               <button type="submit" class="btn btn-primary">Trimite</button>
-              <button type="submit" (click)="toggleForms()" class="btn">Deja ai un cont?</button>
+              <button type="submit" (click)="toggleForms(true, false, false)" class="btn">Deja ai un cont?</button>
+          </form>
+        </div>
+      </div>
+      <div class="card centered" *ngIf="showResetPassword">
+        <div class="card-body">
+          <!-- <h5 class="card-title">Card title</h5>
+          <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          <a href="#" class="card-link">Card link</a>
+          <a href="#" class="card-link">Another link</a> -->
+          <h1>Resetare parola</h1>
+          <form [formGroup]="resetPasswordForm" (ngSubmit)="resetPasswordOnSubmit()" *ngIf="!resetPasswordEmailSent">
+            <div class="form-group">
+              <label for="exampleInputEmail1" matBadge="*" matBadgeOverlap="false" matBadgePosition="before">Email</label>
+              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email"  formControlName="email">
+              <small id="emailHelp" class="form-text text-muted">*Acest email il vei folosi pentru conectare</small>
+            </div>
+            <button type="submit" class="btn btn-primary">Trimite</button>
+            <button type="submit" (click)="toggleForms(true, false, false)" class="btn">Vrei sa te conectezi?</button>
+        </form>
+          <form [formGroup]="resetPasswordForm" (ngSubmit)="resetPasswordOnSubmit()" *ngIf="resetPasswordEmailSent">
+              <div class="form-group">
+                <label for="exampleInputEmail1" matBadge="*" matBadgeOverlap="false" matBadgePosition="before">Email</label>
+                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email"  formControlName="email">
+                <small id="emailHelp" class="form-text text-muted">*Acest email il vei folosi pentru conectare</small>
+              </div>
+              <div class="form-group">
+                <label for="exampleInputPassword1" matBadge="*" matBadgeOverlap="false" matBadgePosition="before">Cod</label>
+                <input type="text" class="form-control" id="exampleInputPassword1" formControlName="code">
+                <small id="emailHelp" class="form-text text-muted">*Codul primit prin email</small>
+              </div>
+              <div class="form-group">
+                <label for="exampleInputPassword1" matBadge="*" matBadgeOverlap="false" matBadgePosition="before">Noua parola</label>
+                <input type="password" class="form-control" id="exampleInputPassword1" formControlName="newPassword">
+              </div>
+              <button type="submit" class="btn btn-primary">Trimite</button>
+              <button type="submit" (click)="toggleForms(true, false, false)" class="btn">Vrei sa te conectezi?</button>
           </form>
         </div>
       </div>
