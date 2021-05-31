@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
 import { EditProductDialogComponent } from '../edit-product-dialog/edit-product-dialog.component';
 import Swal from 'sweetalert2'
+import { AngularFireStorage } from '@angular/fire/storage';
 
 @Component({
   selector: 'app-admin',
@@ -18,7 +19,7 @@ export class AdminComponent implements OnInit {
   subscriptionsDataSource: any;
   productsDataSource: any;
 
-  constructor(private http: HttpClient, private dialog: MatDialog) { 
+  constructor(private http: HttpClient, private dialog: MatDialog, private storage: AngularFireStorage  ) {
     this.status[0] = 'Pending'
     this.status[1] = 'Processing'
     this.status[2] = 'Shipping'
@@ -27,7 +28,7 @@ export class AdminComponent implements OnInit {
   }
 
   status: any = []
-  
+
   ngOnInit(): void {
     this.getOrders()
     this.getSubscriptions()
@@ -74,7 +75,7 @@ export class AdminComponent implements OnInit {
       confirmButtonText: 'Yes!'
     }).then((result) => {
       if (result.isConfirmed) {
-        this.http.put<any>('/api/orders', {orderId: order._id, status: newStatus}).subscribe(
+        this.http.put<any>('/api/orders', { orderId: order._id, status: newStatus }).subscribe(
           data => {
             Swal.fire(
               'Succes!',
@@ -97,11 +98,11 @@ export class AdminComponent implements OnInit {
       )
     } else {
       this.updateStatus(order, 4)
-    } 
+    }
   }
 
   toggleSubscription(subscription: any, newAvailability: any) {
-    this.http.put<any>('/api/subscriptions', {subscriptionId: subscription._id, newAvailability: newAvailability}).subscribe(
+    this.http.put<any>('/api/subscriptions', { subscriptionId: subscription._id, newAvailability: newAvailability }).subscribe(
       data => {
         if (!newAvailability) {
           Swal.fire(
@@ -124,30 +125,74 @@ export class AdminComponent implements OnInit {
   editProductDialog(product: any) {
     const dialogRef = this.dialog.open(EditProductDialogComponent, {
       data: {
-       product: product
+        product: product ? product : null
       }
     });
-
+    /*
+      * result[0] contains form data
+      * result[1] contains files
+      * check edit product dialog
+    */
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.http.put<any>('/api/products/' + product._id, 
-          { name: result.value.name, description: result.value.description, price: result.value.price, availability: result.value.availability }).subscribe(
-            data => {
-              Swal.fire(
-                'Succes!',
-                'Produsul a fost actualizat cu succes.',
-                'success'
-              )
-              this.getProducts()
-            },
-            error => {
-              Swal.fire(
-                'Eroare!',
-                'Produsul nu a fost actualizat. Verificati campurile.',
-                'error'
-              )
-            }
-          )
+        let classInstance = this
+        let imagePaths: any = []
+        Array.from(result[1]).forEach(function(item: any, index: any) {
+          const file = item;
+          const filePath = item.name;
+          imagePaths.push(filePath)
+          const ref = classInstance.storage.ref(filePath);
+          const task = ref.put(file);
+        })
+        if (!product) {
+          // new product - post method
+          this.http.post<any>('/api/products/',
+            { name: result[0].value.name,
+              description: result[0].value.description,
+              price: result[0].value.price, 
+              availability: result[0].value.availability,
+              imagePaths: imagePaths }).subscribe(
+              data => {
+                Swal.fire(
+                  'Succes!',
+                  'Produsul a fost salvat cu succes.',
+                  'success'
+                )
+                this.getProducts()
+              },
+              error => {
+                Swal.fire(
+                  'Eroare!',
+                  'Produsul nu a fost salvat. Verificati campurile.',
+                  'error'
+                )
+              }
+            )
+        } else {
+          // update product - put method
+          this.http.put<any>('/api/products/' + product._id,
+            { name: result[0].value.name, 
+              description: result[0].value.description, 
+              price: result[0].value.price, 
+              availability: result[0].value.availability, 
+              imagePaths: imagePaths }).subscribe(
+              data => {
+                Swal.fire(
+                  'Succes!',
+                  'Produsul a fost salvat cu succes.',
+                  'success'
+                )
+                this.getProducts()
+              },
+              error => {
+                Swal.fire(
+                  'Eroare!',
+                  'Produsul nu a fost salvat. Verificati campurile.',
+                  'error'
+                )
+              }
+            )
+        }
       }
     });
   }

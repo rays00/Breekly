@@ -27,7 +27,7 @@ export class HomeComponent implements OnInit {
     let searchedValue = this.searchForm.value.searchInput
     this.homeProducts = this.allFrontProducts.filter((product: any) => {
       return product.name.toLowerCase().includes(searchedValue.toLowerCase())
-    })
+    }).slice(0, 4)
     if (!this.homeProducts.length) {
       this.noSearchResults = true
     }
@@ -37,8 +37,8 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.http.get<any>('api/products').subscribe(
       data => {
-        this.allFrontProducts = data.slice(0, 4)
-        this.homeProducts = this.allFrontProducts
+        this.allFrontProducts = data
+        this.homeProducts = this.allFrontProducts.slice(0, 4)
       }
     )
   } 

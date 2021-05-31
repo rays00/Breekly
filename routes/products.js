@@ -32,6 +32,7 @@ router.put('/:id', function(req, res) {
         product.description = req.body.description;
         product.price = req.body.price;
         product.availability = req.body.availability;
+        product.imagePaths = req.body.imagePaths;
         product.save()
         .then(product => res.status(200).json({ message: "Success!", product: product }))
         .catch(err => res.status(500).json({ error: err }))
@@ -43,7 +44,8 @@ function saveProduct(req, res) {
         name: req.body.name,
         description: req.body.description,
         price: req.body.price,
-        availability: req.body.availability
+        availability: req.body.availability,
+        imagePaths: req.body.imagePaths
     });
     newProduct.save()
     .then(product => res.status(200).json({ message: "Success!", product: product }))

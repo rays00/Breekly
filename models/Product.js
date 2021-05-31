@@ -14,6 +14,9 @@ const ProductSchema = new Schema({
     availability: {
         type:Boolean,
         required:true
-    }
+    },
+    imagePaths: [{
+        type: String 
+    }]
 });
 module.exports = Product = mongoose.model("product", ProductSchema);
