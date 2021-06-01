@@ -11,25 +11,13 @@
       src="https://via.placeholder.com/2500x550"
       class="img-fluid" alt="Responsive image">
   </div>
-  <div class="row">
-    <div class="col-sm centered">
-      <span class="heading-m">250</span>
-      <span>Clienti</span>
-    </div>
-    <div class="col-sm centered">
-      <span class="heading-m">120</span>
-      <span>Subscriptii</span>
-    </div>
-    <div class="col-sm centered">
-      <span class="heading-m">20</span>
-      <span>Comenzi</span>
-    </div>
-  </div>
   <div class="row justify-content-center" id="products">
     <div class="col-sm" *ngFor="let product of homeProducts">
       <div class="card">
         <div class="card-body ta-center">
-          <img src="https://pngimg.com/uploads/water_bottle/water_bottle_PNG98959.png" width="192" alt="">
+          <div class="homeProductImageContainer">
+            <img [src]="productMedia[product._id]" height="192" alt="">
+          </div>
           <h5 class="card-title" [routerLink]="['product', product._id]">{{product.name}} <span
               class="badge bg-secondary">New</span></h5>
           <h6 class="card-subtitle mb-2 text-muted">Top product</h6>
@@ -40,6 +28,20 @@
     </div>
     <div class="col-12 centered" *ngIf="noSearchResults">
       <h2>Nu am gasit niciun rezultat pentru cautarea ta.</h2>
+    </div>
+    <div class="row">
+      <div class="col-sm centered">
+        <span class="heading-m">250</span>
+        <span>Clienti</span>
+      </div>
+      <div class="col-sm centered">
+        <span class="heading-m">120</span>
+        <span>Subscriptii</span>
+      </div>
+      <div class="col-sm centered">
+        <span class="heading-m">20</span>
+        <span>Comenzi</span>
+      </div>
     </div>
     <div class="row">
       <div class="col-sm">

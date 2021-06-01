@@ -27,6 +27,11 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { EditProductDialogComponent } from './edit-product-dialog/edit-product-dialog.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatBadgeModule } from '@angular/material/badge';
+import { MatListModule } from '@angular/material/list'
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireStorageModule, BUCKET } from '@angular/fire/storage';
+import { environment } from '../environments/environment';
+import { MatButtonModule } from '@angular/material/button';
 
 export function tokenGetter() {
   return localStorage.getItem("AUTH")
@@ -52,6 +57,8 @@ export function tokenGetter() {
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireStorageModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter
@@ -66,9 +73,13 @@ export function tokenGetter() {
     MatTabsModule,
     MatTableModule,
     MatCheckboxModule,
-    MatBadgeModule
+    MatBadgeModule,
+    MatListModule,
+    MatButtonModule
   ],
-  providers: [],
+  providers: [
+    { provide: BUCKET, useValue: environment.firebase.storageBucket}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

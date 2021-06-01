@@ -3,7 +3,15 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  firebase: {
+    apiKey: 'AIzaSyBeTFnhFXjFjFZL2FAQsX29tmaDe7gYTqo',
+    authDomain: 'breekly.firebaseapp.com',
+    projectId: 'breekly',
+    storageBucket: 'breekly.appspot.com',
+    messagingSenderId: '447396046888',
+    appId: '1:447396046888:web:07c6cdac53bd6067c8ed1d',
+  }
 };
 
 /*

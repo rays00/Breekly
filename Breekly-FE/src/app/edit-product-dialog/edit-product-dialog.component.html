@@ -1,29 +1,40 @@
-<h2 mat-dialog-title>{{data.name}}</h2>
+<h2 mat-dialog-title *ngIf="data.product">{{data.product.name}}</h2>
 <mat-dialog-content class="mat-typography">
   <form [formGroup]="editProductForm">
     <div class="form-group">
-        <label for="name">Name</label>
-        <input type="text" class="form-control" id="name" aria-describedby="name"
-            formControlName="name">
+      <label for="name">Name</label>
+      <input type="text" class="form-control" id="name" aria-describedby="name" formControlName="name">
     </div>
     <div class="form-group">
-        <label for="description">Description</label>
-        <textarea class="form-control" id="description" aria-describedby="description"
-            formControlName="description"></textarea>
+      <label for="description">Description</label>
+      <textarea class="form-control" id="description" aria-describedby="description"
+        formControlName="description"></textarea>
     </div>
     <div class="form-group">
-        <label for="price">Price</label>
-        <input type="text" class="form-control" id="price" aria-describedby="price"
-            formControlName="price">
+      <label for="price">Price</label>
+      <input type="text" class="form-control" id="price" aria-describedby="price" formControlName="price">
     </div>
     <div class="form-group">
-        <label for="availability">Availability&nbsp;</label>
-        <input type="checkbox" id="availability" aria-describedby="availability"
-            formControlName="availability">
+      <label for="availability">Availability&nbsp;</label>
+      <input type="checkbox" id="availability" aria-describedby="availability" formControlName="availability">
+    </div>
+    <div class="form-group">
+      <input type="file" multiple (change)="onFileSelected($event)">
+      <div *ngFor="let file of files">
+          {{file.name}}
+      </div>
+    </div>
+    <div class="form-group" *ngIf="data.product">
+      <mat-selection-list #media (selectionChange)="onChange(media.selectedOptions.selected)">
+        <mat-list-option color="primary" *ngFor="let media of data.product.media" [value]="media" selected>
+          <img [src]="currentMedia[media]" alt="" width="192">
+        </mat-list-option>
+      </mat-selection-list>
     </div>
   </form>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button class="btn" mat-button mat-dialog-close>Cancel</button>
-  <button class="btn" mat-button [mat-dialog-close]="editProductForm" cdkFocusInitial>Save</button>
+  <button class="btn" mat-button [mat-dialog-close]="true" (click)="saveProduct(data.product)"
+    cdkFocusInitial>Save</button>
 </mat-dialog-actions>

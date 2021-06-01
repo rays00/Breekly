@@ -13,7 +13,7 @@ export class AdminComponent implements OnInit {
 
   displayedColumnsSubscriptions: string[] = ['id', 'product', 'qty', 'address', 'action'];
   displayedColumnsProducts: string[] = ['id', 'name', 'price', 'action'];
-  displayedColumnsOrders: string[] = ['id', 'product', 'qty', 'address', 'status', 'action', 'cancel-action'];
+  displayedColumnsOrders: string[] = ['id', 'subscription', 'address', 'status', 'action', 'cancel-action'];
   ordersDataSource: any;
   subscriptionsDataSource: any;
   productsDataSource: any;
@@ -121,6 +121,10 @@ export class AdminComponent implements OnInit {
     )
   }
 
+  addNewProduct() {
+    this.editProductDialog(null)
+  }
+
   editProductDialog(product: any) {
     const dialogRef = this.dialog.open(EditProductDialogComponent, {
       data: {
@@ -129,26 +133,7 @@ export class AdminComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.http.put<any>('/api/products/' + product._id, 
-          { name: result.value.name, description: result.value.description, price: result.value.price, availability: result.value.availability }).subscribe(
-            data => {
-              Swal.fire(
-                'Succes!',
-                'Produsul a fost actualizat cu succes.',
-                'success'
-              )
-              this.getProducts()
-            },
-            error => {
-              Swal.fire(
-                'Eroare!',
-                'Produsul nu a fost actualizat. Verificati campurile.',
-                'error'
-              )
-            }
-          )
-      }
+      this.getProducts()
     });
   }
 
