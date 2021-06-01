@@ -28,10 +28,11 @@ router.put('/:id', function(req, res) {
         if (!product) {
           return res.status(404).json({ message: 'We couldn\'t find your product.'})
         }
-        product.name = req.body.name;
-        product.description = req.body.description;
-        product.price = req.body.price;
-        product.availability = req.body.availability;
+        product.name = req.body.name
+        product.description = req.body.description
+        product.price = req.body.price
+        product.availability = req.body.availability
+        product.media = req.body.media
         product.save()
         .then(product => res.status(200).json({ message: "Success!", product: product }))
         .catch(err => res.status(500).json({ error: err }))
@@ -43,7 +44,8 @@ function saveProduct(req, res) {
         name: req.body.name,
         description: req.body.description,
         price: req.body.price,
-        availability: req.body.availability
+        availability: req.body.availability,
+        media: req.body.media
     });
     newProduct.save()
     .then(product => res.status(200).json({ message: "Success!", product: product }))

@@ -29,8 +29,8 @@ export class LoginComponent implements OnInit {
     firstName: new FormControl(''),
   });
 
-  showLogin = false;
-  showRegister = true;
+  showLogin = true;
+  showRegister = false;
   showResetPassword = false;
 
   resetPasswordEmailSent = false

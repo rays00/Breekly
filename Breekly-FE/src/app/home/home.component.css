@@ -55,3 +55,7 @@
 .ta-center {
     text-align: center
 }
+
+.homeProductImageContainer {
+    min-height: 220px
+}
