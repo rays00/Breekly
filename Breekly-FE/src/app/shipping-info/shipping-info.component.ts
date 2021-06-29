@@ -80,16 +80,16 @@ export class ShippingInfoComponent implements OnInit {
          error => {
            if (error.status == 401) {
              Swal.fire({
-               title: 'We\'re sorry!',
-               text: 'You are not logged in!',
+               title: 'Eroare!',
+               text: 'Nu esti conectat!',
                icon: 'error',
                confirmButtonText: 'OK'
              })
            } else {
              if (error.status == 500) {
                Swal.fire({
-                 title: 'We\'re sorry!',
-                 text: 'You didn\'t complete all the required fields.',
+                 title: 'Eroare!',
+                 text: 'Nu ai completat toate campurile.',
                  icon: 'error',
                  confirmButtonText: 'OK'
                })

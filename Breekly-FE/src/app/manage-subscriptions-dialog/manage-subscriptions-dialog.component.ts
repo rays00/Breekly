@@ -20,13 +20,14 @@ export class ManageSubscriptionsDialogComponent implements OnInit {
 
   removeSubscription(id: any): any {
     Swal.fire({
-      title: 'Are you sure?',
-      text: 'This action can\'t be reversed',
+      title: 'Esti sigur?',
+      text: 'Actiunea nu poate fi anulata',
       icon: 'warning',
       showCancelButton: true,
+      cancelButtonText: 'Nu',
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes!'
+      confirmButtonText: 'Da!'
     }).then((result) => {
       if (result.isConfirmed) {
         this.http.delete<any>('api/subscriptions/' + id).subscribe(

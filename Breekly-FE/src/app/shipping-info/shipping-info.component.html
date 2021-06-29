@@ -1,43 +1,43 @@
 <div class="container" *ngIf="!loader">
-    <h2>Billing information</h2>
+    <h2>Informatii livrare</h2>
 
     <form class="billing-form" [formGroup]="billingForm" (ngSubmit)="onSubmit()">
         <mat-form-field appearance="fill">
-            <mat-label>Select an address</mat-label>
+            <mat-label>Selecteaza o adresa</mat-label>
             <mat-select [(value)]="selected">
                 <mat-option *ngFor="let address of addresses" value="{{address._id}}">{{address.street}}</mat-option>
-                <mat-option value="new">New Address</mat-option>
+                <mat-option value="new">Adresa noua</mat-option>
             </mat-select>
         </mat-form-field>
         <div class="form-group" *ngIf="selected==='new'">
-            <label for="street">street</label>
-            <input type="text" class="form-control" id="street" aria-describedby="street" placeholder="street"
+            <label for="street">Strada</label>
+            <input type="text" class="form-control" id="street" aria-describedby="street" placeholder="Strada"
                 formControlName="street">
         </div>
         <div class="form-group" *ngIf="selected==='new'">
-            <label for="number">number</label>
-            <input type="text" class="form-control" id="number" aria-describedby="number" placeholder="number"
+            <label for="number">Numar</label>
+            <input type="text" class="form-control" id="number" aria-describedby="number" placeholder="Numar"
                 formControlName="number">
         </div>
         <div class="form-group" *ngIf="selected==='new'">
-            <label for="details">details</label>
-            <input type="text" class="form-control" id="details" aria-describedby="details" placeholder="details"
+            <label for="details">Detalii</label>
+            <input type="text" class="form-control" id="details" aria-describedby="details" placeholder="Detalii"
                 formControlName="details">
         </div>
         <div class="form-group" *ngIf="selected==='new'">
-            <label for="city">city</label>
-            <input type="text" class="form-control" id="city" aria-describedby="city" placeholder="city"
+            <label for="city">Oras</label>
+            <input type="text" class="form-control" id="city" aria-describedby="city" placeholder="Oras"
                 formControlName="city">
         </div>
         <div class="form-group">
-            <label for="city">Payment method</label>
+            <label for="city">Metoda de plata</label>
             <select class="form-control">
-                <option value="1">Cash on delivery</option>
+                <option value="1">Ramburs la curier</option>
             </select>
             <small>*Daca unul din produsele din cos + cantitatea aferenta reprezinta o subscriptie existenta,
                 se vor creea subscriptii doar pentru celelalte produse din cos.</small>
         </div>
-        <button type="submit" class="btn btn-success">Send Subscription</button>
+        <button type="submit" class="btn btn-success">Trimite subscriptia</button>
     </form>
 </div>
 <div class="container">

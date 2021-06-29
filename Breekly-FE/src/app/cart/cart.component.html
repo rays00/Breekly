@@ -1,13 +1,13 @@
 <div class="container" *ngIf="items else missing">
-  <h3>Shopping Cart</h3> <mat-icon aria-hidden="false" aria-label="Example home icon">shopping_cart</mat-icon>
+  <h3>Cos de cumparaturi</h3> <mat-icon aria-hidden="false" aria-label="Example home icon">shopping_cart</mat-icon>
   <table class="table">
     <thead>
       <tr>
-        <th scope="col">Product</th>
-        <th scope="col">Unit Price</th>
-        <th scope="col">Quantity</th>
-        <th scope="col">Price</th>
-        <th scope="col">Action</th>
+        <th scope="col">Produs</th>
+        <th scope="col">Pret unitar</th>
+        <th scope="col">Cantitate</th>
+        <th scope="col">Pret</th>
+        <th scope="col">Actiune</th>
       </tr>
     </thead>
     <tbody>
@@ -25,7 +25,7 @@
         </td>
         <td>{{item.price * item.qty | currency}}</td>
         <td>
-          <button class="btn btn-danger" (click)="removeItem(item)">Remove</button>
+          <button class="btn btn-danger" (click)="removeItem(item)">Elimina</button>
         </td>
       </tr>
       <tr class="total">
@@ -37,8 +37,8 @@
       </tr>
     </tbody>
   </table>
-  <button class="btn btn-danger" (click)="clearCart()">Clear Cart</button>
-  <button class="btn btn-success next-step" (click)="toggleShippingInfo()">Next Step</button>
+  <button class="btn btn-danger" (click)="clearCart()">Golire cos</button>
+  <button class="btn btn-success next-step" (click)="toggleShippingInfo()">Pasul urmator</button>
 </div>
 
 <app-shipping-info (displayNextStep)="getNextStep($event)" [items]="items" *ngIf="nextStep"></app-shipping-info>

@@ -59,3 +59,13 @@
 .homeProductImageContainer {
     min-height: 220px
 }
+
+.logo {
+    height: 27em
+}
+
+@media (max-width: 800px) {
+    .logo {
+        height: 10em
+    }
+}

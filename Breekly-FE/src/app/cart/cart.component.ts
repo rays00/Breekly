@@ -23,10 +23,10 @@ export class CartComponent implements OnInit {
     this.nextStep = nextStep;
     if (this.nextStep === false) {
       Swal.fire({
-        title: 'Success!',
-        text: 'Subscription added!',
+        title: 'Succes!',
+        text: 'Subscriptie adaugata!',
         icon: 'success',
-        confirmButtonText: 'Cool'
+        confirmButtonText: 'OK'
       })
       this.cartService.clearCart()
       this.getItems()
@@ -59,13 +59,12 @@ export class CartComponent implements OnInit {
 
   removeItem(product: any) {
     Swal.fire({
-      title: 'Are you sure?',
-      text: "This item will be removed",
+      title: 'Esti sigur?',
+      text: "Articolul va fi sters.",
       icon: 'warning',
-      showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes!'
+      confirmButtonText: 'Da!'
     }).then((result) => {
       if (result.isConfirmed) {
         this.cartService.removeById(product._id)
@@ -76,13 +75,12 @@ export class CartComponent implements OnInit {
 
   clearCart() {
     Swal.fire({
-      title: 'Are you sure?',
-      text: "Your cart content will be removed",
+      title: 'Esti sigur?',
+      text: "Continutul cosului va fi sters.",
       icon: 'warning',
-      showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes!'
+      confirmButtonText: 'Da!'
     }).then((result) => {
       if (result.isConfirmed) {
         this.cartService.clearCart()

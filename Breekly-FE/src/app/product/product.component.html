@@ -31,8 +31,8 @@
                 <div class="card-body">
                     <h5 class="card-title">{{product.name}}</h5>
                     <h6 class="card-subtitle mb-2 text-muted"></h6>
-                    <p class="card-text">Description: {{product.description}}</p>
-                    <p class="card-text">Price: {{product.price | currency}}</p>
+                    <p class="card-text">Descriere: {{product.description}}</p>
+                    <p class="card-text">Pret: {{product.price | currency}}</p>
                 </div>
             </div>
         </div>
@@ -42,8 +42,7 @@
             <div class="card product-card">
                 <div class="card-body" style="text-align: center">
                     <p class="card-text" *ngIf="!product.availability">Produs indisponibil</p>
-                    <button *ngIf="product.availability" class="btn btn-primary" (click)="addToCart(product)">Add to
-                        Cart</button>
+                    <button *ngIf="product.availability" class="btn btn-primary" (click)="addToCart(product)">Adauga in cos</button>
                 </div>
             </div>
         </div>

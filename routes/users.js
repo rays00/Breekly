@@ -80,13 +80,14 @@ router.post('/reset', function (req, res) {
       }
       resetPassword(req, res, user);
     })
+    .catch(err => console.log(err))
 })
 
 function resetPassword(req, res, user) {
   var transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-      user: 'bdangabriel@gmail.com',
+      user: 'upsidedown519@gmail.com',
       pass: emailPassword
     }
   });
@@ -97,24 +98,20 @@ function resetPassword(req, res, user) {
   }
 
   var mailOptions = {
-    from: 'bdangabriel@gmail.com',
+    from: 'upsidedown519@gmail.com',
     to: req.body.email,
     subject: 'Breekly - Password reset',
     text: 'Foloseste codul ' + code + ' pentru a-ti reseta parola pe Breekly.'
   };
 
   transporter.sendMail(mailOptions, function (error, info) {
-    if (error) {
-      return res.status(500).json({ err: error })
-    } else {
-      return res.status(200).json({ message: "An email with the code was sent." })
-    }
+    console.log(error)
   });
 
   user.resetPasswordCode = code
   user.save()
     .then(user => {
-      res.status(200).json({ message: "Reset password code applied on user." })
+      return res.status(200).json({ message: "Reset password code applied on user." })
     })
     .catch(err => res.status(500).json({ error: err }));
 }

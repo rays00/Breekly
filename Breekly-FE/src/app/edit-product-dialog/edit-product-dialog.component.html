@@ -2,20 +2,20 @@
 <mat-dialog-content class="mat-typography">
   <form [formGroup]="editProductForm">
     <div class="form-group">
-      <label for="name">Name</label>
+      <label for="name">Nume</label>
       <input type="text" class="form-control" id="name" aria-describedby="name" formControlName="name">
     </div>
     <div class="form-group">
-      <label for="description">Description</label>
+      <label for="description">Descriere</label>
       <textarea class="form-control" id="description" aria-describedby="description"
         formControlName="description"></textarea>
     </div>
     <div class="form-group">
-      <label for="price">Price</label>
+      <label for="price">Pret</label>
       <input type="text" class="form-control" id="price" aria-describedby="price" formControlName="price">
     </div>
     <div class="form-group">
-      <label for="availability">Availability&nbsp;</label>
+      <label for="availability">Disponibilitate&nbsp;</label>
       <input type="checkbox" id="availability" aria-describedby="availability" formControlName="availability">
     </div>
     <div class="form-group">
@@ -34,7 +34,7 @@
   </form>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-  <button class="btn" mat-button mat-dialog-close>Cancel</button>
+  <button class="btn" mat-button mat-dialog-close>Renunta</button>
   <button class="btn" mat-button [mat-dialog-close]="true" (click)="saveProduct(data.product)"
-    cdkFocusInitial>Save</button>
+    cdkFocusInitial>Salveaza</button>
 </mat-dialog-actions>
