@@ -13,6 +13,15 @@ import { AngularFireStorage } from '@angular/fire/storage';
 })
 export class ProductComponent implements OnInit {
 
+  filters: any = []
+
+  reloadProducts(e: any) {
+    let filterName = e.target.value.split('=')[0]
+    let filterValue = e.target.value.split('=')[1]
+    this.filters[filterName] = filterValue
+    console.log(this.filters)
+  }
+
   product: any
   productMedia: any = []
   mainMedia: any
@@ -49,10 +58,10 @@ export class ProductComponent implements OnInit {
   addToCart(product: any) {
     this.cartService.addToCart(product);
     Swal.fire({
-      title: 'Success!',
-      text: product.name +  ' was added to your cart',
+      title: 'Succes!',
+      text: product.name +  ' a fost adaugat in cos',
       icon: 'success',
-      confirmButtonText: 'Cool'
+      confirmButtonText: 'OK'
     })
   }
 

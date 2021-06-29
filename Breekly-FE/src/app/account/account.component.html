@@ -13,7 +13,7 @@
                             <h6 class="card-subtitle mb-2 text-muted"></h6>
                             <p class="card-text"><span class="field-name">Nume:</span><span class="field-value">{{userData.firstName}}&nbsp; {{userData.lastName}}</span></p>
                             <p class="card-text"><span class="field-name">Email:</span><span class="field-value">{{userData.email}}</span></p>
-                            <p class="card-text"><span class="field-name">Telefon:</span><span class="field-value">0722747426</span></p>
+                            <p class="card-text"><span class="field-name"></span><span class="field-value"></span></p>
                         </div>
                     </div>
                     <div class="account-card-footer">
@@ -36,8 +36,8 @@
                             </div>
                             <h6 class="card-subtitle mb-2 text-muted"></h6>
                             <p class="card-text"><span class="field-name">Subscriptii:</span><span *ngIf="subscriptions" class="field-value">{{subscriptions.length}}</span></p>
-                            <p class="card-text"><span class="field-name">Email:</span><span class="field-value">{{userData.email}}</span></p>
-                            <p class="card-text"><span class="field-name">Telefon:</span><span class="field-value">0722747426</span></p>
+                            <p class="card-text"><span class="field-name"></span><span class="field-value"></span></p>
+                            <p class="card-text"><span class="field-name"></span><span class="field-value"></span></p>
                         </div>
                     </div>
                     <div class="account-card-footer">
@@ -92,23 +92,23 @@
                                 <span class="field-value"></span>
                             </p>
                             <p class="card-text">
-                                <span class="field-name">Quantity:</span>
+                                <span class="field-name">Cantitate:</span>
                                 <span class="field-value">{{order.subscriptionId.qty}}</span>
                             </p>
                             <p class="card-text">
-                                <span class="field-name">Product:</span>
+                                <span class="field-name">Produs:</span>
                                 <span class="field-value">{{order.subscriptionId.productId.name}}</span>
                             </p>
                             <p class="card-text">
-                                <span class="field-name">Address:</span>
+                                <span class="field-name">Adresa:</span>
                                 <span class="field-value">{{order.subscriptionId.addressId.street}}&nbsp;{{order.subscriptionId.addressId.number}}</span>
                             </p>
                             <p class="card-text">
-                                <span class="field-name">Status:</span>
+                                <span class="field-name">Stare:</span>
                                 <span class="field-value">{{order.status}}</span>
                             </p>
                             <p class="card-text">
-                                <span class="field-name">Placed at:</span>
+                                <span class="field-name">Plasata la:</span>
                                 <span class="field-value">{{order.time | date:'dd-MM-yyyy'}}</span>
                             </p>
                         </li>

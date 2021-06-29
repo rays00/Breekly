@@ -25,7 +25,7 @@ export class EditProductDialogComponent implements OnInit {
     name: this.data.product ? new FormControl(this.data.product.name) : new FormControl(''),
     description: this.data.product ? new FormControl(this.data.product.description) : new FormControl(''),
     price: this.data.product ? new FormControl(this.data.product.price) : new FormControl(''),
-    availability: this.data.product ? new FormControl(this.data.product.availability) : new FormControl(''),
+    availability: this.data.product ? new FormControl(this.data.product.availability) : new FormControl(false),
   });
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, private http: HttpClient, private dialog: MatDialog, private storage: AngularFireStorage) {

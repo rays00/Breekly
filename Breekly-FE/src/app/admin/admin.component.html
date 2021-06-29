@@ -1,5 +1,5 @@
 <mat-tab-group mat-align-tabs="center">
-  <mat-tab label="Orders">
+  <mat-tab label="Comenzi">
     <table mat-table [dataSource]="ordersDataSource" class="mat-elevation-z8">
 
       <!--- Note that these columns can be defined in any order.
@@ -29,7 +29,7 @@
 
       <!-- Symbol Column -->
       <ng-container matColumnDef="status">
-        <th mat-header-cell *matHeaderCellDef> Status </th>
+        <th mat-header-cell *matHeaderCellDef> Stare </th>
         <td mat-cell *matCellDef="let element"> {{status[element.status]}} </td>
       </ng-container>
 
@@ -56,7 +56,7 @@
       <tr mat-row *matRowDef="let row; columns: displayedColumnsOrders;"></tr>
     </table>
   </mat-tab>
-  <mat-tab label="Subscriptions">
+  <mat-tab label="Subscriptii">
     <table mat-table [dataSource]="subscriptionsDataSource" class="mat-elevation-z8">
 
       <!--- Note that these columns can be defined in any order.
@@ -102,7 +102,7 @@
       <tr mat-row *matRowDef="let row; columns: displayedColumnsSubscriptions;"></tr>
     </table>
   </mat-tab>
-  <mat-tab label="Products">
+  <mat-tab label="Produse">
     <button mat-button (click)="addNewProduct()">+</button>
     
     <table mat-table [dataSource]="productsDataSource" class="mat-elevation-z8">

@@ -2,28 +2,28 @@
 <mat-dialog-content class="mat-typography">
   <form [formGroup]="editAddressForm">
     <div class="form-group">
-        <label for="street">Street</label>
+        <label for="street">Strada</label>
         <input type="text" class="form-control" id="street" aria-describedby="street"
             formControlName="street">
     </div>
     <div class="form-group">
-        <label for="number">Number</label>
+        <label for="number">Numar</label>
         <input type="text" class="form-control" id="number" aria-describedby="number"
             formControlName="number">
     </div>
     <div class="form-group">
-        <label for="details">Details</label>
+        <label for="details">Detalii</label>
         <input type="text" class="form-control" id="details" aria-describedby="details"
             formControlName="details">
     </div>
     <div class="form-group">
-        <label for="city">City</label>
+        <label for="city">Oras</label>
         <input type="text" class="form-control" id="city" aria-describedby="city"
             formControlName="city">
     </div>
   </form>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-  <button class="btn" mat-button mat-dialog-close>Cancel</button>
-  <button class="btn" mat-button [mat-dialog-close]="editAddressForm" cdkFocusInitial>Save</button>
+  <button class="btn" mat-button mat-dialog-close>Renunta</button>
+  <button class="btn" mat-button [mat-dialog-close]="editAddressForm" cdkFocusInitial>Salveaza</button>
 </mat-dialog-actions>

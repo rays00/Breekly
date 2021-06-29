@@ -19,11 +19,11 @@ export class AdminComponent implements OnInit {
   productsDataSource: any;
 
   constructor(private http: HttpClient, private dialog: MatDialog) { 
-    this.status[0] = 'Pending'
-    this.status[1] = 'Processing'
-    this.status[2] = 'Shipping'
-    this.status[3] = 'Complete'
-    this.status[4] = 'Canceled'
+    this.status[0] = 'In asteptare'
+    this.status[1] = 'In procesare'
+    this.status[2] = 'In livrare'
+    this.status[3] = 'Completa'
+    this.status[4] = 'Anulata'
   }
 
   status: any = []
@@ -64,28 +64,37 @@ export class AdminComponent implements OnInit {
   }
 
   updateStatus(order: any, newStatus: any) {
-    Swal.fire({
-      title: 'Are you sure?',
-      html: "This order will have this status:</br>" + this.status[newStatus],
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes!'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.http.put<any>('/api/orders', {orderId: order._id, status: newStatus}).subscribe(
-          data => {
-            Swal.fire(
-              'Succes!',
-              ':)',
-              'success'
-            )
-            this.getOrders()
-          }
-        )
-      }
-    })
+    if (order.status == 4) {
+      Swal.fire(
+        'Eroare!',
+        'Comanda este anulata.',
+        'error'
+      )
+    } else {
+      Swal.fire({
+        title: 'Esti sigur?',
+        html: "Comanda va avea statusul:</br>" + this.status[newStatus],
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Da',
+        cancelButtonText: 'Nu',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.http.put<any>('/api/orders', {orderId: order._id, status: newStatus}).subscribe(
+            data => {
+              Swal.fire(
+                'Succes!',
+                ':)',
+                'success'
+              )
+              this.getOrders()
+            }
+          )
+        }
+      })
+    }
   }
 
   cancelOrder(order: any) {

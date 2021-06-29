@@ -40,11 +40,11 @@ export class AccountComponent implements OnInit {
 
   getMyOrders() {
     const status: any = []
-    status[0] = 'Pending'
-    status[1] = 'Processing'
-    status[2] = 'Shipping'
-    status[3] = 'Complete'
-    status[4] = 'Canceled'
+    status[0] = 'In asteptare'
+    status[1] = 'In procesare'
+    status[2] = 'In livrare'
+    status[3] = 'Completa'
+    status[4] = 'Anulata'
 
     this.http.get<any>("/api/orders/mine").subscribe(
       data => {
@@ -81,20 +81,21 @@ export class AccountComponent implements OnInit {
 
   logout() {
     Swal.fire({
-      title: 'Are you sure?',
-      text: "You will not be able to manage subscriptions anymore",
+      title: 'Esti sigur?',
+      text: "Va trebui sa te reconectezi.",
       icon: 'warning',
       showCancelButton: true,
+      cancelButtonText: "Nu",
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes!'
+      confirmButtonText: 'Da!'
     }).then((result) => {
       if (result.isConfirmed) {
         this.router.navigateByUrl('')
         localStorage.setItem("AUTH", "")
         Swal.fire(
-          'Log out!',
-          'You were disconnected.',
+          'Deconectat!',
+          'Ai fost deconectat',
           'success'
         )
       }
@@ -141,8 +142,8 @@ export class AccountComponent implements OnInit {
           },
           err => {
             Swal.fire({
-              title: 'Error!',
-              text: '!!!',
+              title: 'Eroare!',
+              text: '',
               icon: 'error',
               confirmButtonText: 'OK'
             })

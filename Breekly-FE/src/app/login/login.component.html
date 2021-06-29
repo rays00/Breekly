@@ -8,16 +8,16 @@
           <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
           <a href="#" class="card-link">Card link</a>
           <a href="#" class="card-link">Another link</a> -->
-          <h1>Login</h1>
+          <h1>Conectare</h1>
           <form [formGroup]="loginForm" (ngSubmit)="loginOnSubmit()">
               <div class="form-group">
                 <label for="exampleInputEmail1">Email</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email"  formControlName="email">
+                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email"  formControlName="email">
                 <small id="emailHelp" class="form-text text-muted">*Emailul folosit la inregistrare</small>
               </div>
               <div class="form-group">
                 <label for="exampleInputPassword1">Parola</label>
-                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password"  formControlName="password">
+                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Parola"  formControlName="password">
               </div>
               <button type="submit" class="btn btn-primary">Trimite</button>
               <button type="submit" (click)="toggleForms(false, true, false)" class="btn">Nu ai cont?</button>
@@ -38,12 +38,15 @@
           <form [formGroup]="registerForm" (ngSubmit)="registerOnSubmit()">
               <div class="form-group">
                 <label for="exampleInputEmail1" matBadge="*" matBadgeOverlap="false" matBadgePosition="before">Email</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email"  formControlName="email">
+                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email"  formControlName="email">
                 <small id="emailHelp" class="form-text text-muted">*Acest email il vei folosi pentru conectare</small>
               </div>
               <div class="form-group">
                 <label for="exampleInputPassword1" matBadge="*" matBadgeOverlap="false" matBadgePosition="before">Parola</label>
-                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password"  formControlName="password">
+                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Parola" formControlName="password">
+                <div *ngIf="form.password.touched && form.password.invalid">
+                  <small>Parola trebuie sa contina minim 8 caractere alfanumerice.</small>
+                </div>
               </div>
               <div class="form-group">
                 <label for="exampleInputPassword1" matBadge="*" matBadgeOverlap="false" matBadgePosition="before">Prenume</label>
@@ -53,7 +56,7 @@
                 <label for="exampleInputPassword1" matBadge="*" matBadgeOverlap="false" matBadgePosition="before">Nume</label>
                 <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Ex: Popescu"  formControlName="lastName">
               </div>
-              <button type="submit" class="btn btn-primary">Trimite</button>
+              <button type="submit" [disabled]="!registerForm.valid" class="btn btn-primary">Trimite</button>
               <button type="submit" (click)="toggleForms(true, false, false)" class="btn">Deja ai un cont?</button>
           </form>
         </div>
@@ -69,7 +72,7 @@
           <form [formGroup]="resetPasswordForm" (ngSubmit)="resetPasswordOnSubmit()" *ngIf="!resetPasswordEmailSent">
             <div class="form-group">
               <label for="exampleInputEmail1" matBadge="*" matBadgeOverlap="false" matBadgePosition="before">Email</label>
-              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email"  formControlName="email">
+              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email"  formControlName="email">
               <small id="emailHelp" class="form-text text-muted">*Acest email il vei folosi pentru conectare</small>
             </div>
             <button type="submit" class="btn btn-primary">Trimite</button>
@@ -90,7 +93,10 @@
                 <label for="exampleInputPassword1" matBadge="*" matBadgeOverlap="false" matBadgePosition="before">Noua parola</label>
                 <input type="password" class="form-control" id="exampleInputPassword1" formControlName="newPassword">
               </div>
-              <button type="submit" class="btn btn-primary">Trimite</button>
+              <div *ngIf="form.password.touched && form.password.invalid">
+                <small>Parola trebuie sa contina minim 8 caractere alfanumerice.</small>
+              </div>
+              <button type="submit"  [disabled]="!resetPasswordForm.valid" class="btn btn-primary">Trimite</button>
               <button type="submit" (click)="toggleForms(true, false, false)" class="btn">Vrei sa te conectezi?</button>
           </form>
         </div>

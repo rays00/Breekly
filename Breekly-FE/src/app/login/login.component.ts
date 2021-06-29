@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms'; 
+import { FormGroup, FormControl, Validators } from '@angular/forms'; 
 import { HttpClient } from '@angular/common/http';
 import { Router, ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2'
@@ -18,15 +18,15 @@ export class LoginComponent implements OnInit {
 
   resetPasswordForm = new FormGroup({
     email: new FormControl(''),
-    code: new FormControl(''),
-    newPassword: new FormControl('')
+    code: new FormControl('', [Validators.required]),
+    newPassword: new FormControl('', [Validators.required, Validators.pattern("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$")])
   });
 
   registerForm = new FormGroup({
-    email: new FormControl(''),
-    password: new FormControl(''),
-    lastName: new FormControl(''),
-    firstName: new FormControl(''),
+    email: new FormControl('', [Validators.required, Validators.email]),
+    password: new FormControl('', [Validators.required, Validators.pattern("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$")]),
+    lastName: new FormControl('', Validators.required),
+    firstName: new FormControl('', Validators.required),
   });
 
   showLogin = true;
@@ -105,13 +105,17 @@ export class LoginComponent implements OnInit {
       err => {
         this.toggleForms(true, false, false)
         Swal.fire({
-          title: 'Error!',
-          text: 'Wrong username or password',
+          title: 'Eroare!',
+          text: 'Verifica datele si incearca din nou.',
           icon: 'error',
           confirmButtonText: 'OK'
         })
       }
     )
+  }
+
+  get form() {
+    return this.registerForm.controls
   }
 
   registerOnSubmit() {

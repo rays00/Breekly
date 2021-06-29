@@ -10,7 +10,7 @@ var emailPassword = require('./config/keys').EMAIL_PASS;
 var transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
-    user: 'bdangabriel@gmail.com',
+    user: 'upsidedown519@gmail.com',
     pass: emailPassword
   }
 });
@@ -34,26 +34,28 @@ var cron = require('node-cron');
 
 var app = express();
 
+app.use(express.static('Breekly-FE/dist/Breekly-FE'))
+
 var http = require('http');
 
-cron.schedule('0 1 * * *', () => {
+cron.schedule('*/5 * * * *', () => {
   var options = {
     host: '',
     path: '/api/subscriptions',
-    port: 3000
+    port: 8080
   };
 
   callback = function (response) {
     var str = '';
 
-    //another chunk of data has been received, so append it to `str`
     response.on('data', function (chunk) {
       let subscriptions = JSON.parse(chunk)
+      console.log(subscriptions.length)
       subscriptions.forEach(function (item, index) {
         var mailOptions = {}
         if (item.isActive && item.productId.availability) {
           mailOptions = {
-            from: 'bdangabriel@gmail.com',
+            from: 'upsidedown519@gmail.com',
             to: item.userId.email,
             subject: 'Breekly - Comanda noua',
             text:
@@ -64,7 +66,7 @@ cron.schedule('0 1 * * *', () => {
           postNewOrder(item._id)
         } else {
           mailOptions = {
-            from: 'bdangabriel@gmail.com',
+            from: 'upsidedown519@gmail.com',
             to: item.userId.email,
             subject: 'Breekly - Comanda esuata',
             text: 'Nu am putut trimite comanda pentru ca produsul este indisponibil. Produs: ' + item.productId.name
@@ -86,7 +88,7 @@ function postNewOrder(id) {
   var options = {
     host: '',
     path: '/api/orders',
-    port: '3000',
+    port: '8080',
     method: 'POST',
     headers:
     {
@@ -107,7 +109,6 @@ function postNewOrder(id) {
   }
 
   var req = http.request(options, callback);
-  //This is the data we are posting, it needs to be a string or a buffer
   var body = { subscriptionId: id }
   req.write(JSON.stringify(body));
   req.end();
@@ -126,5 +127,9 @@ app.use('/api/products', productsRouter);
 app.use('/api/subscriptions', subscriptionsRouter);
 app.use('/api/addresses', addressesRouter);
 app.use('/api/orders', ordersRouter);
+
+app.use((req, res) => {
+  res.sendFile(path.join(__dirname, 'Breekly-FE/dist/Breekly-FE/index.html'));
+});
 
 module.exports = app;

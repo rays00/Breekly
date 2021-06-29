@@ -2,14 +2,14 @@
   <div class="row">
     <form [formGroup]="searchForm">
       <div class="form-group">
-        <input (change)="search()" type="text" placeholder="Search" class="form-control" id="exampleInputEmail1" formControlName="searchInput">
+        <input (change)="search()" type="text" placeholder="Caută (cafea, apa)" class="form-control" id="exampleInputEmail1" formControlName="searchInput">
       </div>
     </form>
   </div>
   <div class="row">
     <img
-      src="https://via.placeholder.com/2500x550"
-      class="img-fluid" alt="Responsive image">
+      src="../../assets/logo.png"
+      class="img-fluid logo" alt="Responsive image">
   </div>
   <div class="row justify-content-center" id="products">
     <div class="col-sm" *ngFor="let product of homeProducts">
@@ -19,8 +19,8 @@
             <img [src]="productMedia[product._id]" height="192" alt="">
           </div>
           <h5 class="card-title" [routerLink]="['product', product._id]">{{product.name}} <span
-              class="badge bg-secondary">New</span></h5>
-          <h6 class="card-subtitle mb-2 text-muted">Top product</h6>
+              class="badge bg-secondary">Nou</span></h5>
+          <h6 class="card-subtitle mb-2 text-muted">Eligibil pentru subscripție</h6>
           <p class="card-text">{{product.description}}</p>
           <p class="card-text">{{product.price | currency}}</p>
         </div>
@@ -31,48 +31,43 @@
     </div>
     <div class="row">
       <div class="col-sm centered">
-        <span class="heading-m">250</span>
-        <span>Clienti</span>
+        <span class="heading-m">{{customersCount}}</span>
+        <span>Clienți</span>
       </div>
       <div class="col-sm centered">
-        <span class="heading-m">120</span>
-        <span>Subscriptii</span>
+        <span class="heading-m">{{subscriptionsCount}}</span>
+        <span>Subscripții</span>
       </div>
       <div class="col-sm centered">
-        <span class="heading-m">20</span>
+        <span class="heading-m">{{ordersCount}}</span>
         <span>Comenzi</span>
       </div>
     </div>
     <div class="row">
       <div class="col-sm">
         <h1>Povestea noastra...</h1>
-        <span class="nostalgic">LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM
-          LOREM IPSUM LOREM IPSUM
-          LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM
-          LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM
-          LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM
-          LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM
-          LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM
-          LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM
+        <span class="nostalgic">Am ales acest nume din dorința de a contopi sub același cuvânt două cuvinte în limba engleză ce descriu activitatea principală a aplicației:
+          verbul “to bring” semnificând “a aduce” în limba română, iar adverbul “weekly”, traducându-se în “săptămânal”.
+          Aplicația propune o schimbare a modului de a cumpăra prin trecerea de la o comandă la mai multe comenzi generate automat pe baza subscripției.           
         </span>
       </div>
     </div>
     <div class="row">
-      <span class="heading-sm">Cum functionam?</span>
+      <span class="heading-sm">Cum funcționăm?</span>
       <div class="col-sm">
         <mat-icon aria-hidden="false" aria-label="Example home icon">computer</mat-icon>
-        <p class="no-margin heading-xs">Te inregistrezi pe site, apoi alegi ce produse doresti si cantitatile lor.</p>
-        <p class="no-margin heading-xs">Poti avea o singura subscriptie pentru aceeasi combinatie de produs-cantitate.</p>
+        <p class="no-margin heading-xs">Te înregistrezi pe site, apoi alegi ce produse dorești și cantitățile lor.</p>
+        <p class="no-margin heading-xs">Poți avea o singură subscripție pentru aceeași combinație de produs-cantitate.</p>
       </div>
       <div class="col-sm">
         <mat-icon aria-hidden="false" aria-label="Example home icon">description</mat-icon>
-        <p class="no-margin heading-xs">Apoi trimiti comanda furnizandu-ne adresa si astfel creezi o subscriptie.</p>
-        <p class="no-margin heading-xs">Pentru fiecare produs din comanda se va creea cate o subscriptie.</p>
+        <p class="no-margin heading-xs">Apoi trimiți comanda furnizându-ne adresa și astfel creezi o subscripție.</p>
+        <p class="no-margin heading-xs">Pentru fiecare produs din comandă se va creea câte o subscripție.</p>
       </div>
       <div class="col-sm">
         <mat-icon aria-hidden="false" aria-label="Example home icon">done</mat-icon>
-        <p class="no-margin heading-xs">In fiecare dimineata la ora 1 o comanda pentru fiecare subscriptie va pleca spre tine.</p>
-        <p class="no-margin heading-xs">Comenzile le poti urmari din pagina contului impreuna cu statusul acestora.</p>
+        <p class="no-margin heading-xs">În fiecare dimineață la ora 1 o comandă pentru fiecare subscripție va pleca spre tine.</p>
+        <p class="no-margin heading-xs">Comenzile le poți urmări din pagina contului împreuna cu starea acestora.</p>
       </div>
     </div>
   </div>
